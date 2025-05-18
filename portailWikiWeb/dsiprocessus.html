@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSI - Groupe Énergétique</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #ffc107;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            scroll-behavior: smooth;
+        }
+        
+        .navbar {
+            transition: all 0.3s;
+        }
+        
+        .navbar.scrolled {
+            background-color: #fff !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar.scrolled .nav-link {
+            color: var(--dark-color) !important;
+        }
+        
+        .navbar.scrolled .navbar-brand {
+            color: var(--dark-color) !important;
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 30px 0;
+        }
+        
+        .emoji-big {
+            font-size: 2rem;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .comparison-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation améliorée -->
+    <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-bolt me-2"></i>DSI Énergétique
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#process"><i class="fas fa-project-diagram me-1"></i> Processus</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#amoa"><i class="fas fa-handshake me-1"></i> AMOA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#transformation"><i class="fas fa-robot me-1"></i> Transformation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#infrastructure"><i class="fas fa-server me-1"></i> Infrastructure</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact"><i class="fas fa-envelope me-1"></i> Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section text-center text-white" style="background: linear-gradient(135deg, #003366, #0056b3); padding: 180px 0 100px;">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInDown">
+                <i class="fas fa-sitemap"></i> Direction des Systèmes d'Information
+            </h1>
+            <p class="lead mb-5 animate__animated animate__fadeInUp animate__delay-1s">
+                Gestion du cycle de vie des projets IT du groupe énergétique
+            </p>
+            <a href="#process" class="btn btn-light btn-lg px-4 py-2 animate__animated animate__fadeInUp animate__delay-2s">
+                <i class="fas fa-arrow-down me-2"></i> Découvrir notre organisation
+            </a>
+        </div>
+    </header>
+
+    <!-- Process Section -->
+    <section id="process" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">
+                    <span class="emoji-big">📊</span> Cycle de vie des projets IT
+                </h2>
+                <p class="lead text-muted">De l'expression de besoin à la mise en production</p>
+            </div>
+            
+            <!-- Diagramme Mermaid -->
+            <div class="mermaid">
+                graph TD
+                    A[📝 Expression de besoin] --> B{🔍 Analyse}
+                    B -->|Interne| C[🛠️ Développement]
+                    B -->|Externe| D[📢 Appel d'offres]
+                    D --> E[📦 Sélection fournisseur]
+                    C --> F[🧪 Recette]
+                    E --> F
+                    F --> G[🚀 Mise en production]
+                    G --> H[🔄 Exploitation]
+                    H -->|Feedback| A
+            </div>
+            
+            <!-- Tableau comparatif -->
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-balance-scale me-2"></i> Comparaison des modes de réalisation
+                    </h3>
+                    <div class="comparison-table">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Critère</th>
+                                    <th>Développement interne</th>
+                                    <th>Appel d'offres</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>⏱️ Délai</td>
+                                    <td>Plus long (ressources internes limitées)</td>
+                                    <td>Plus rapide (engagement contractuel)</td>
+                                </tr>
+                                <tr>
+                                    <td>💰 Coût</td>
+                                    <td>Coûts récurrents (salaires)</td>
+                                    <td>Coût projet fixé contractuellement</td>
+                                </tr>
+                                <tr>
+                                    <td>🛠️ Expertise</td>
+                                    <td>Connaissance métier approfondie</td>
+                                    <td>Expertise spécialisée externe</td>
+                                </tr>
+                                <tr>
+                                    <td>🔒 Maîtrise</td>
+                                    <td>Contrôle total sur le produit</td>
+                                    <td>Dépendance au fournisseur</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Étapes détaillées avec émoticônes -->
+            <div class="row mt-5 g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 mb-3">📋</div>
+                            <h4>1. Expression de besoin</h4>
+                            <p class="text-muted">
+                                <i class="fas fa-users me-1"></i> Métier + AMOA<br>
+                                Analyse préliminaire et estimation
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 mb-3">📝</div>
+                            <h4>2. Spécifications</h4>
+                            <p class="text-muted">
+                                <i class="fas fa-file-signature me-1"></i> Cahier des charges<br>
+                                Choix build vs. buy
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 mb-3">👨‍💻</div>
+                            <h4>3. Réalisation</h4>
+                            <p class="text-muted">
+                                <i class="fas fa-code-branch me-1"></i> Développement<br>
+                                ou gestion prestataire
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 mb-3">🚀</div>
+                            <h4>4. Mise en prod</h4>
+                            <p class="text-muted">
+                                <i class="fas fa-cloud-upload-alt me-1"></i> Déploiement<br>
+                                et exploitation
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	
+	<!-- Section Vision 360 avec onglets -->
+<section id="vision360" class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">
+                <i class="fas fa-globe-americas me-2"></i> Vision 360° du Cycle de Vie IT
+            </h2>
+            <p class="lead text-muted">De l'idée métier à l'exploitation en production</p>
+        </div>
+
+        <!-- Navigation par onglets -->
+        <ul class="nav nav-tabs justify-content-center mb-4" id="visionTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="etude-tab" data-bs-toggle="tab" data-bs-target="#etude" type="button">
+                    <i class="fas fa-search me-2"></i> Phase Étude
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="build-tab" data-bs-toggle="tab" data-bs-target="#build" type="button">
+                    <i class="fas fa-code me-2"></i> Phase Build
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="run-tab" data-bs-toggle="tab" data-bs-target="#run" type="button">
+                    <i class="fas fa-server me-2"></i> Phase Run
+                </button>
+            </li>
+        </ul>
+
+        <!-- Contenu des onglets -->
+        <div class="tab-content" id="visionTabsContent">
+            <!-- Onglet Étude -->
+            <div class="tab-pane fade show active" id="etude" role="tabpanel">
+                <div class="mermaid mb-5">
+                    flowchart TD
+                        A[📋 Expression de besoin] --> B[/📊 Analyse préliminaire\]
+                        B --> C{Type de solution?}
+                        C -->|Standard| D[🔍 Benchmark solutions]
+                        C -->|Spécifique| E[📝 Rédaction CDC]
+                        D --> F[📑 Sélection éditeur]
+                        E --> G[📢 Appel d'offres]
+                        G --> H[📦 Sélection prestataire]
+                        F & H --> I[🏛️ CVATL]
+                        I -->|Validation| J[✅ Lancement projet]
+                </div>
+
+                <div class="row g-4">
+                    <!-- Étape 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-lightbulb me-2"></i> 1. Expression de besoin
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user-tie text-primary me-2"></i>
+                                        Portage métier (MOA)
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-file-signature text-primary me-2"></i>
+                                        Fiche de besoin formalisée
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-euro-sign text-primary me-2"></i>
+                                        Estimation budget préliminaire
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Étape 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-file-alt me-2"></i> 2. Étude de solution
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-balance-scale text-primary me-2"></i>
+                                        Analyse Build vs. Buy
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-search-dollar text-primary me-2"></i>
+                                        Benchmark solutions existantes
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-tasks text-primary me-2"></i>
+                                        Cahier des charges fonctionnel
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-gavel me-2"></i> 3. CVATL
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-archway text-primary me-2"></i>
+                                        Validation architecture technique
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-shield-alt text-primary me-2"></i>
+                                        Revue des aspects sécurité
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-project-diagram text-primary me-2"></i>
+                                        Intégration paysage SI existant
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-thumbs-up text-primary me-2"></i>
+                                        Décision Go/No Go
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onglet Build -->
+            <div class="tab-pane fade" id="build" role="tabpanel">
+			
+				
+				<div class="container my-5">
+					  <h3 class="text-center fw-bold mb-4">🔧 Phase Build</h3>
+					  <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
+						<!-- Étape 1 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-white shadow-sm">
+							<div class="fw-bold text-primary">1. 🏗️</div>
+							<div>Kick-off projet</div>
+						  </div>
+						</div>
+						<div class="fs-3">➡️</div>
+
+						<!-- Étape 2 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-white shadow-sm">
+							<div class="fw-bold text-primary">2. 📐</div>
+							<div>Conception détaillée</div>
+						  </div>
+						</div>
+						<div class="fs-3">➡️</div>
+
+						<!-- Étape 3 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-white shadow-sm">
+							<div class="fw-bold text-primary">3. 👨‍💻</div>
+							<div>Développement</div>
+						  </div>
+						</div>
+						<div class="fs-3">➡️</div>
+
+						<!-- Étape 4 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-white shadow-sm">
+							<div class="fw-bold text-primary">4. 🧪</div>
+							<div>Tests unitaires</div>
+						  </div>
+						</div>
+						<div class="fs-3">➡️</div>
+
+						<!-- Étape 5 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-white shadow-sm">
+							<div class="fw-bold text-primary">5. ⚙️</div>
+							<div>Intégration continue</div>
+						  </div>
+						</div>
+						<div class="fs-3">➡️</div>
+
+						<!-- Étape 6 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-white shadow-sm">
+							<div class="fw-bold text-primary">6. 💻</div>
+							<div>Recette technique</div>
+						  </div>
+						</div>
+						<div class="fs-3">➡️</div>
+
+						<!-- Étape 7 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-white shadow-sm">
+							<div class="fw-bold text-primary">7. 👩‍💼</div>
+							<div>Recette fonctionnelle</div>
+						  </div>
+						</div>
+						<div class="fs-3">➡️</div>
+
+						<!-- Étape 8 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-white shadow-sm">
+							<div class="fw-bold text-primary">8. 📋</div>
+							<div>Comité de changement</div>
+						  </div>
+						</div>
+						<div class="fs-3">➡️</div>
+
+						<!-- Étape 9 -->
+						<div class="text-center">
+						  <div class="p-3 border rounded bg-success text-white shadow-sm">
+							<div class="fw-bold">9. 🚀</div>
+							<div>MEP</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+
+			
+			
+			
+
+
+                <div class="row g-4">
+                    <!-- Étape 1 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-success">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-project-diagram me-2"></i> 1. Conception
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-sitemap text-success me-2"></i>
+                                        Architecture technique
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-database text-success me-2"></i>
+                                        Modèle de données
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-code-branch text-success me-2"></i>
+                                        User Stories détaillées
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Étape 2 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-success">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-laptop-code me-2"></i> 2. Réalisation
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-code text-success me-2"></i>
+                                        Développement sprint agile
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-vial text-success me-2"></i>
+                                        Tests unitaires/intégration
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-sync-alt text-success me-2"></i>
+                                        Revue code (peer programming)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-success">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-vials me-2"></i> 3. Recettes
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-cog text-success me-2"></i>
+                                        Recette technique (DSI)
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-user-check text-success me-2"></i>
+                                        Recette fonctionnelle (MOA)
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-chart-bar text-success me-2"></i>
+                                        Tests de performance
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-lock text-success me-2"></i>
+                                        Audit sécurité
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Étape 4 -->
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100 border-success">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-clipboard-check me-2"></i> 4. Comité MEP
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-file-alt text-success me-2"></i>
+                                        Dossier de mise en production
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-calendar-alt text-success me-2"></i>
+                                        Plan de déploiement
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-undo text-success me-2"></i>
+                                        Plan de rollback
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-thumbs-up text-success me-2"></i>
+                                        Validation finale
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onglet Run -->
+            <div class="tab-pane fade" id="run" role="tabpanel">
+                
+				
+				<div class="container my-5">
+				  <h3 class="text-center fw-bold mb-4">⚙️ Phase Run</h3>
+
+				  <!-- Ligne 1 -->
+				  <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4">
+					<div class="text-center">
+					  <div class="p-3 border rounded bg-white shadow-sm">
+						<div class="fw-bold text-info">1. 🏁</div>
+						<div>Mise en production</div>
+					  </div>
+					</div>
+					<div class="fs-3">➡️</div>
+					<div class="text-center">
+					  <div class="p-3 border rounded bg-white shadow-sm">
+						<div class="fw-bold text-info">2. 👨‍🔧</div>
+						<div>Exploitation</div>
+					  </div>
+					</div>
+					<div class="fs-3">➡️</div>
+					<div class="text-center">
+					  <div class="p-3 border rounded bg-white shadow-sm">
+						<div class="fw-bold text-info">3. 📈</div>
+						<div>Supervision 24/7</div>
+					  </div>
+					</div>
+					<div class="fs-3">➡️</div>
+					<div class="text-center">
+					  <div class="p-3 border rounded bg-white shadow-sm">
+						<div class="fw-bold text-danger">4. ❓</div>
+						<div>Incident ?</div>
+					  </div>
+					</div>
+				  </div>
+
+				  <!-- Branche OUI -->
+				  <div class="row mb-4">
+					<div class="col-md-6 text-center">
+					  <div class="fs-4 fw-bold text-danger mb-2">➡️ Oui</div>
+					  <div class="p-3 border rounded bg-white shadow-sm d-inline-block">
+						<div class="fw-bold text-danger">5. 🆘</div>
+						<div>Gestion des incidents</div>
+					  </div>
+					  <div class="fs-3 my-2">➡️</div>
+					  <div class="p-3 border rounded bg-white shadow-sm d-inline-block">
+						<div class="fw-bold text-danger">6. 📊</div>
+						<div>Analyse root cause</div>
+					  </div>
+					  <div class="fs-3 my-2">➡️</div>
+					  <div class="p-3 border rounded bg-white shadow-sm d-inline-block">
+						<div class="fw-bold text-danger">7. 🛠️</div>
+						<div>Correctif</div>
+					  </div>
+					  <div class="fs-3 my-2">🔁</div>
+					  <div class="p-3 border rounded bg-white shadow-sm d-inline-block">
+						<div class="fw-bold text-info">2. 👨‍🔧</div>
+						<div>Retour à l’exploitation</div>
+					  </div>
+					</div>
+
+					<!-- Branche NON -->
+					<div class="col-md-6 text-center">
+					  <div class="fs-4 fw-bold text-success mb-2">➡️ Non</div>
+					  <div class="p-3 border rounded bg-white shadow-sm d-inline-block">
+						<div class="fw-bold text-success">5. 🔄</div>
+						<div>Amélioration continue</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+
+
+                <div class="row g-4">
+                    <!-- Étape 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-info">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-rocket me-2"></i> 1. Mise en production
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-cloud-upload-alt text-info me-2"></i>
+                                        Déploiement progressif
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-users text-info me-2"></i>
+                                        Formation utilisateurs
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-book text-info me-2"></i>
+                                        Documentation technique
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Étape 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-info">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-desktop me-2"></i> 2. Exploitation
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-heartbeat text-info me-2"></i>
+                                        Supervision temps réel
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-bell text-info me-2"></i>
+                                        Gestion des alertes
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-sync text-info me-2"></i>
+                                        Maintenance corrective
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100 border-info">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-line me-2"></i> 3. Amélioration
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-search text-info me-2"></i>
+                                        Revue post-mortem incidents
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-tachometer-alt text-info me-2"></i>
+                                        Optimisation performance
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-plus-circle text-info me-2"></i>
+                                        Évolutions mineures
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-recycle text-info me-2"></i>
+                                        Feedback vers nouveaux projets
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processus de gestion d'incidents -->
+                <div class="mt-5">
+                    <div class="card border-0 shadow">
+                        <div class="card-header bg-dark text-white">
+                            <h4 class="mb-0">
+                                <i class="fas fa-fire-extinguisher me-2"></i> Workflow de gestion des incidents
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="mermaid">
+                                journey
+                                    title Gestion d'un incident critique
+                                    section Détection
+                                      Alerte monitoring: 5: SOC
+                                      Création ticket: 3: L1
+                                    section Diagnostic
+                                      Analyse initiale: 5: L2
+                                      Escalade si besoin: 2: L3
+                                    section Correction
+                                      Correctif d'urgence: 8: Dev/Infra
+                                      Déploiement hotfix: 4: Ops
+                                    section Clôture
+                                      Validation MOA: 2: Métier
+                                      Revue post-mortem: 3: Tous
+                            </div>
+                            
+                            <div class="row mt-4 g-4">
+                                <div class="col-md-4">
+                                    <div class="p-3 border rounded h-100">
+                                        <h5><i class="fas fa-headset me-2"></i> Niveaux de support</h5>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">
+                                                <span class="badge bg-primary me-2">L1</span>
+                                                Support de base (24/7)
+                                            </li>
+                                            <li class="mb-2">
+                                                <span class="badge bg-warning me-2">L2</span>
+                                                Experts techniques
+                                            </li>
+                                            <li>
+                                                <span class="badge bg-danger me-2">L3</span>
+                                                Éditeurs/Devs
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 border rounded h-100">
+                                        <h5><i class="fas fa-clock me-2"></i> SLA Incidents</h5>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">
+                                                <span class="badge bg-danger me-2">Critique</span>
+                                                < 1h réponse
+                                            </li>
+                                            <li class="mb-2">
+                                                <span class="badge bg-warning me-2">Majeur</span>
+                                                < 4h réponse
+                                            </li>
+                                            <li>
+                                                <span class="badge bg-info me-2">Mineur</span>
+                                                < 24h réponse
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 border rounded h-100">
+                                        <h5><i class="fas fa-chart-pie me-2"></i> Statistiques 2023</h5>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">📊 98.5% SLA respecté</li>
+                                            <li class="mb-2">⏱️ MTTR moyen: 2h15</li>
+                                            <li>🔄 15% d'incidents récurrents</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AMOA Section -->
+    <section id="amoa" class="py-5" style="background: linear-gradient(135deg, #17a2b8, #138496); color: white;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">
+                        <span class="emoji-big">🤝</span> Assistance à Maîtrise d'Ouvrage
+                    </h2>
+                    <p class="lead mb-4">L'AMOA assure le lien entre métiers et DSI tout au long du cycle projet</p>
+                    
+                    <!-- Diagramme Mermaid AMOA -->
+                    <div class="mermaid">
+                        flowchart LR
+                            Métier -->|Expression besoin| AMOA
+                            AMOA -->|Traduction technique| DSI
+                            DSI -->|Solutions| AMOA
+                            AMOA -->|Validation| Métier
+                            AMOA -->|Suivi| Prestataires
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-white p-4 rounded shadow text-dark">
+                        <h3 class="mb-4">
+                            <i class="fas fa-tasks me-2"></i> Rôles clés de l'AMOA
+                        </h3>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-3"></i>
+                                <span>Cadrage initial du besoin métier</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-3"></i>
+                                <span>Rédaction du cahier des charges fonctionnel</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-3"></i>
+                                <span>Évaluation des solutions et fournisseurs</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-3"></i>
+                                <span>Organisation des recettes utilisateurs</span>
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-3"></i>
+                                <span>Mesure de la satisfaction post-déploiement</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Transformation Section -->
+    <section id="transformation" class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">
+                    <span class="emoji-big">🚀</span> Transformation Digitale
+                </h2>
+                <p class="lead text-muted">Initiatives transverses pilotées en dehors de la DSI</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 mb-3">🤖</div>
+                            <h4>Automatisation RPA</h4>
+                            <p class="text-muted">
+                                Robotisation des processus métiers répétitifs
+                            </p>
+                            <div class="mermaid mt-3">
+                                pie title Processus automatisés
+                                    "Facturation" : 35
+                                    "SAV" : 25
+                                    "RH" : 20
+                                    "Logistique" : 20
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 mb-3">📱</div>
+                            <h4>Portail Client</h4>
+                            <p class="text-muted">
+                                Expérience client omnicanale unifiée
+                            </p>
+                            <div class="mermaid mt-3">
+                                journey
+                                    title Parcours client
+                                    section Inscription
+                                      Création compte: 5: Client
+                                    section Contrat
+                                      Souscription: 3: Client
+                                    section Suivi
+                                      Consultation: 4: Client
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="display-4 mb-3">📊</div>
+                            <h4>Data Analytics</h4>
+                            <p class="text-muted">
+                                Analyse prédictive de la consommation
+                            </p>
+                            <div class="mermaid mt-3">
+                                graph LR
+                                    A[Données compteurs] --> B(Analyse)
+                                    B --> C[Prévision charge]
+                                    B --> D[Détection anomalies]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Infrastructure Section -->
+    <section id="infrastructure" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">
+                    <span class="emoji-big">🖥️</span> Infrastructure & Exploitation
+                </h2>
+                <p class="lead text-muted">Supervision et maintien en condition opérationnelle</p>
+            </div>
+            
+            <!-- Diagramme d'architecture -->
+            <div class="mermaid">
+                graph TB
+                    subgraph "🌍 Front-office"
+                        A[Portail Client] --> B[API Gateway]
+                        C[Applications métiers] --> B
+                    end
+                    
+                    subgraph "🔒 Back-office"
+                        B --> D[Services métiers]
+                        D --> E[(BDD Opérationnelle)]
+                        D --> F[(BDD Reporting)]
+                    end
+                    
+                    subgraph "☁️ Cloud Hybride"
+                        E --> G{Azure}
+                        F --> H{AWS}
+                    end
+                    
+                    G --> I[🛡️ SOC]
+                    H --> I
+            </div>
+            
+            <!-- Tableau des indicateurs -->
+            <div class="row mt-4">
+                <div class="col-lg-10 mx-auto">
+                    <div class="card border-0 shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">
+                                <i class="fas fa-chart-line me-2"></i> Indicateurs clés d'exploitation
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Service</th>
+                                            <th>Disponibilité</th>
+                                            <th>MTTR</th>
+                                            <th>Charge moyenne</th>
+                                            <th>Alertes/jour</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>🛒 Portail client</td>
+                                            <td>99.95%</td>
+                                            <td>12 min</td>
+                                            <td>45%</td>
+                                            <td>8</td>
+                                        </tr>
+                                        <tr>
+                                            <td>⚡ Système SCADA</td>
+                                            <td>99.99%</td>
+                                            <td>5 min</td>
+                                            <td>32%</td>
+                                            <td>3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>📊 Reporting</td>
+                                            <td>99.8%</td>
+                                            <td>25 min</td>
+                                            <td>68%</td>
+                                            <td>15</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-4">
+                        <span class="emoji-big">📧</span> Contactez la DSI
+                    </h2>
+                    <p class="lead mb-5">Pour toute demande concernant les projets IT ou l'infrastructure</p>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded h-100">
+                                <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                                <h5>Support</h5>
+                                <p class="mb-1">support-dsi@groupe-energie.com</p>
+                                <small class="text-muted">Réponse sous 2h</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded h-100">
+                                <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                                <h5>Hotline</h5>
+                                <p class="mb-1">+33 1 23 45 67 89</p>
+                                <small class="text-muted">24/7 pour les urgences</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-3 border rounded h-100">
+                                <i class="fas fa-tasks fa-2x text-primary mb-3"></i>
+                                <h5>Portefeuille projet</h5>
+                                <p class="mb-1">pmoffice-dsi@groupe-energie.com</p>
+                                <small class="text-muted">Suivi des demandes</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>
+                        <i class="fas fa-bolt me-2"></i> Direction des Systèmes d'Information
+                    </h5>
+                    <p>Groupe Énergétique - Leader français de la distribution d'électricité</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-github fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <h5>Processus</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#process" class="text-white-50">Gestion de projet</a></li>
+                                <li><a href="#amoa" class="text-white-50">AMOA</a></li>
+                                <li><a href="#infrastructure" class="text-white-50">Exploitation</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <h5>Ressources</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#" class="text-white-50">Documentation</a></li>
+                                <li><a href="#" class="text-white-50">Formations</a></li>
+                                <li><a href="#" class="text-white-50">FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Newsletter</h5>
+                            <p class="text-white-50">Abonnez-vous aux actualités DSI</p>
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Votre email">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 Groupe Énergétique. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialisation de Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { useMaxWidth: true }
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNav');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Correction des ancres pour Bootstrap 5
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Re-init Mermaid after dynamic content load (if any)
+        function initMermaid() {
+            mermaid.init(undefined, '.mermaid');
+        }
+        
+        // Réexécuter Mermaid après le chargement complet
+        window.addEventListener('load', initMermaid);
+    </script>
+</body>
+</html>

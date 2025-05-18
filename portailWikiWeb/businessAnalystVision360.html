@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail Business Analyst 360°</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --info-color: #9b59b6;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 3rem 0;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+        }
+        
+        .card-dashboard {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            height: 100%;
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .card-dashboard:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .mermaid-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #eee;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 11px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--secondary-color), var(--accent-color));
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -30px;
+            top: 3px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--secondary-color);
+        }
+        
+        .checklist-item {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--secondary-color);
+        }
+        
+        .checklist-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .case-study-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .case-study-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .case-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 15px;
+        }
+        
+        .method-card {
+            border-left: 4px solid;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .dimension-card {
+            border-top: 3px solid;
+            padding: 15px;
+            height: 100%;
+        }
+        
+        .tool-card {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateX(3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .badge-pill {
+            border-radius: 50px;
+            padding: 5px 10px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+	<!-- Navigation - Page BA 360° -->
+	<nav class="navbar navbar-expand-lg sticky-top shadow-sm" style="background-color: #007bff;">
+		<div class="container">
+			<a class="navbar-brand text-white" href="#">
+				<i class="fas fa-project-diagram me-2"></i>BA 360°
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link text-white" href="index.html">
+							<i class="fas fa-home me-1"></i> Portail BA
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="#vision">
+							<i class="fas fa-globe me-1"></i> Vision 360°
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="#methodologie">
+							<i class="fas fa-tools me-1"></i> Méthodologie
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="#cas-pratique">
+							<i class="fas fa-laptop-code me-1"></i> Cas Pratique
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="#checklist">
+							<i class="fas fa-tasks me-1"></i> Checklist
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white" href="#referentiel">
+							<i class="fas fa-book me-1"></i> Référentiel
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">Business Analyst : Vision 360°</h1>
+            <p class="lead mb-4">Bonnes Pratiques et Cas Pratique Complet</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#cas-pratique" class="btn btn-primary btn-lg px-4">
+                    <i class="fas fa-play-circle me-2"></i>Voir le cas pratique
+                </a>
+                <a href="#checklist" class="btn btn-outline-primary btn-lg px-4">
+                    <i class="fas fa-download me-2"></i>Télécharger la checklist
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Introduction -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto text-center">
+                    <h2 class="section-title">Introduction</h2>
+                    <p class="lead">Le Business Analyst (BA) joue un rôle crucial dans la transformation numérique, l'alignement des besoins métiers avec les solutions technologiques, et la réussite des projets.</p>
+                    <p>Adopter une vision 360° permet au BA de considérer tous les aspects d'un écosystème : métiers, processus, données, systèmes, utilisateurs et objectifs stratégiques. Ce document présente les concepts clés, les bonnes pratiques et un cas pratique complet pour illustrer les compétences attendues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Définition et Rôle -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">🧩 Définition et Rôle du Business Analyst</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-bullseye text-primary me-2"></i>Objectif principal</h4>
+                            <p class="mb-4">Identifier, analyser et formaliser les besoins des parties prenantes pour proposer des solutions adaptées</p>
+                            
+                            <h4><i class="fas fa-user-tie text-primary me-2"></i>Profil</h4>
+                            <p>Interface entre les métiers et les équipes techniques</p>
+                            
+                            <h4><i class="fas fa-cogs text-primary me-2"></i>Compétences clés</h4>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                <span class="badge bg-primary">Analyse métier</span>
+                                <span class="badge bg-primary">Communication</span>
+                                <span class="badge bg-primary">Modélisation</span>
+                                <span class="badge bg-primary">Gestion des exigences</span>
+                                <span class="badge bg-primary">Outils collaboratifs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-industry text-primary me-2"></i>Domaines</h4>
+                            <div class="row">
+                                <div class="col-6">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><i class="fas fa-university me-2"></i>Banque</li>
+                                        <li class="list-group-item"><i class="fas fa-shield-alt me-2"></i>Assurance</li>
+                                        <li class="list-group-item"><i class="fas fa-bolt me-2"></i>Énergie</li>
+                                    </ul>
+                                </div>
+                                <div class="col-6">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><i class="fas fa-heartbeat me-2"></i>Santé</li>
+                                        <li class="list-group-item"><i class="fas fa-shopping-cart me-2"></i>E-commerce</li>
+                                        <li class="list-group-item"><i class="fas fa-cogs me-2"></i>Industrie</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4 class="mt-4"><i class="fas fa-chart-line text-primary me-2"></i>Valeur ajoutée</h4>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-success" style="width: 85%">Alignement métier/IT</div>
+                            </div>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-info" style="width: 75%">Réduction des risques</div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" style="width: 90%">Optimisation des coûts</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision 360° -->
+    <section id="vision" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">🔍 Vision 360° du Business Analyst</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="dimension-card" style="border-top-color: #2ecc71;">
+                        <h4><i class="fas fa-chess-board me-2"></i>Métier</h4>
+                        <p>Compréhension des processus métier et de la stratégie</p>
+                        <p class="fw-bold">Exemple : Cartographie des processus métier</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="dimension-card" style="border-top-color: #3498db;">
+                        <h4><i class="fas fa-user me-2"></i>Utilisateur</h4>
+                        <p>Besoins, attentes, expérience (UX)</p>
+                        <p class="fw-bold">Exemple : Personas, parcours utilisateur</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="dimension-card" style="border-top-color: #9b59b6;">
+                        <h4><i class="fas fa-database me-2"></i>Données</h4>
+                        <p>Données entrantes, sortantes, qualité, gouvernance</p>
+                        <p class="fw-bold">Exemple : Modèle de données, dictionnaire</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="dimension-card" style="border-top-color: #e74c3c;">
+                        <h4><i class="fas fa-server me-2"></i>Systèmes</h4>
+                        <p>SI existant, interconnexions, applicatifs</p>
+                        <p class="fw-bold">Exemple : Architecture fonctionnelle</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="dimension-card" style="border-top-color: #f39c12;">
+                        <h4><i class="fas fa-chart-bar me-2"></i>KPIs / ROI</h4>
+                        <p>Mesure de performance, valeur métier</p>
+                        <p class="fw-bold">Exemple : Tableau de bord, indicateurs</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="dimension-card" style="border-top-color: #1abc9c;">
+                        <h4><i class="fas fa-balance-scale me-2"></i>Gouvernance</h4>
+                        <p>Responsabilités, conformité, sécurité</p>
+                        <p class="fw-bold">Exemple : RACI, normes, RGPD, SOX</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-dashboard mt-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4><i class="fas fa-project-diagram me-2"></i>Cartographie des Dimensions</h4>
+                            <div class="mermaid-container">
+                                <div class="mermaid">
+                                    pie showData
+                                        title Dimensions BA 360°
+                                        "Métier" : 20
+                                        "Utilisateur" : 20
+                                        "Données" : 15
+                                        "Systèmes" : 15
+                                        "KPIs/ROI" : 15
+                                        "Gouvernance" : 15
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4><i class="fas fa-chart-line me-2"></i>Importance Relative par Projet</h4>
+                            <canvas id="dimensionsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Méthodologie et Outils -->
+    <section id="methodologie" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">🧰 Méthodologie et Outils du Business Analyst</h2>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4><i class="fas fa-random me-2"></i>Méthodologies</h4>
+                    
+                    <div class="method-card" style="border-left-color: #3498db;">
+                        <h5><i class="fas fa-book me-2"></i>BABOK</h5>
+                        <p class="mb-0">Business Analysis Body of Knowledge - Guide des bonnes pratiques de l'IIBA</p>
+                    </div>
+                    
+                    <div class="method-card" style="border-left-color: #2ecc71;">
+                        <h5><i class="fas fa-bolt me-2"></i>Agile/Scrum</h5>
+                        <p class="mb-0">Product Backlog, User Stories, Cérémonies agiles</p>
+                    </div>
+                    
+                    <div class="method-card" style="border-left-color: #f39c12;">
+                        <h5><i class="fas fa-stream me-2"></i>Lean Six Sigma</h5>
+                        <p class="mb-0">Optimisation des processus, réduction des gaspillages</p>
+                    </div>
+                    
+                    <div class="method-card" style="border-left-color: #9b59b6;">
+                        <h5><i class="fas fa-project-diagram me-2"></i>UML/BPMN</h5>
+                        <p class="mb-0">Modélisation des processus et des cas d'usage</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <h4><i class="fas fa-tools me-2"></i>Outils</h4>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="tool-card">
+                                <h6><i class="fas fa-diagram-project me-2"></i>Modélisation</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Draw.io</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Bizagi</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Lucidchart</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="tool-card">
+                                <h6><i class="fas fa-users me-2"></i>Collaboration</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Miro</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Jira</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Confluence</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="tool-card">
+                                <h6><i class="fas fa-file-alt me-2"></i>Documentation</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Notion</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Word</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Markdown</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="tool-card">
+                                <h6><i class="fas fa-chart-bar me-2"></i>Analyse de données</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success me-2"></i>Power BI</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>SQL</li>
+                                    <li><i class="fas fa-check text-success me-2"></i>Excel</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <canvas id="toolsUsageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bonnes Pratiques -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">⭐ Bonnes Pratiques</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-bullseye me-2"></i>Clarification des besoins</h4>
+                            <ul>
+                                <li>Interviews et ateliers de cadrage</li>
+                                <li>Observations terrain</li>
+                                <li>Questionnaires ciblés</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-book me-2"></i>Formalisation structurée</h4>
+                            <ul>
+                                <li>Spécifications fonctionnelles</li>
+                                <li>Modèles UML/BPMN</li>
+                                <li>Glossaire métier/technique</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-sync-alt me-2"></i>Itération et validation</h4>
+                            <ul>
+                                <li>Prototypage rapide</li>
+                                <li>Démonstrations fréquentes</li>
+                                <li>Feedback continu</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-users me-2"></i>Collaboration active</h4>
+                            <ul>
+                                <li>Co-construction avec les PO</li>
+                                <li>Alignement avec développeurs</li>
+                                <li>Implication des QA</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-chart-pie me-2"></i>Mesure de valeur</h4>
+                            <ul>
+                                <li>Suivi de KPIs métiers</li>
+                                <li>Calcul du ROI</li>
+                                <li>Feedback utilisateurs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-lock me-2"></i>Sécurité et conformité</h4>
+                            <ul>
+                                <li>Respect RGPD</li>
+                                <li>Normes ISO 27001</li>
+                                <li>Audits réguliers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cas Pratique Complet -->
+    <section id="cas-pratique" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">🧪 Cas Pratique Complet - Refonte SI RH</h2>
+            
+            <div class="row mb-4">
+                <div class="col-lg-8 mx-auto text-center">
+                    <p class="lead">Migration d'un système RH legacy vers une solution moderne avec intégration des modules recrutement, formation et gestion des temps.</p>
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4><i class="fas fa-flag me-2"></i>Phase 1 - Cadrage (2 semaines)</h4>
+                    <ul>
+                        <li>Ateliers avec les RH pour identifier les pains points</li>
+                        <li>Analyse de l'existant (AS-IS)</li>
+                        <li>Rédaction de la note de cadrage</li>
+                        <li>Définition de la gouvernance (RACI)</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h4><i class="fas fa-search me-2"></i>Phase 2 - Analyse (3 semaines)</h4>
+                    <ul>
+                        <li>Modélisation des processus TO-BE en BPMN</li>
+                        <li>Définition des personas (HRBP, Manager, Employé)</li>
+                        <li>Cartographie des parcours utilisateurs</li>
+                        <li>Rédaction des spécifications fonctionnelles</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h4><i class="fas fa-drafting-compass me-2"></i>Phase 3 - Conception (4 semaines)</h4>
+                    <ul>
+                        <li>Maquettage des écrans clés (Figma)</li>
+                        <li>Définition des règles de gestion métier</li>
+                        <li>Modélisation des données (Merise)</li>
+                        <li>Cartographie des intégrations (Swagger)</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h4><i class="fas fa-check-double me-2"></i>Phase 4 - Recette (2 semaines)</h4>
+                    <ul>
+                        <li>Rédaction des cas de test (TestRail)</li>
+                        <li>Coordination des tests utilisateurs</li>
+                        <li>Validation des écrans et processus</li>
+                        <li>Formation des utilisateurs finaux</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row mt-4 g-4">
+                <div class="col-md-6">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-tasks me-2"></i>Livrables Produits</h4>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Phase</th>
+                                            <th>Document</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Cadrage</td>
+                                            <td>Note de cadrage</td>
+                                            <td><span class="badge bg-success">Validé</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Analyse</td>
+                                            <td>Spécifications fonctionnelles</td>
+                                            <td><span class="badge bg-success">Validé</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Conception</td>
+                                            <td>Maquettes IHM</td>
+                                            <td><span class="badge bg-warning">En cours</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Recette</td>
+                                            <td>Plan de test</td>
+                                            <td><span class="badge bg-secondary">À venir</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-chart-line me-2"></i>Suivi du Projet</h4>
+                            <canvas id="projectTimelineChart"></canvas>
+                            <div class="mt-3 text-center">
+                                <span class="badge bg-primary me-2">Planifié</span>
+                                <span class="badge bg-warning me-2">En cours</span>
+                                <span class="badge bg-success">Terminé</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-dashboard mt-4">
+                <div class="card-body">
+                    <h4><i class="fas fa-chart-pie me-2"></i>Répartition des Efforts</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <canvas id="effortDistributionChart"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Analyse des besoins
+                                    <span class="badge bg-primary badge-pill">25%</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Modélisation
+                                    <span class="badge bg-success badge-pill">20%</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Documentation
+                                    <span class="badge bg-info badge-pill">15%</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Coordination
+                                    <span class="badge bg-warning badge-pill">30%</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Validation
+                                    <span class="badge bg-danger badge-pill">10%</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist -->
+    <section id="checklist" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title text-center">✅ Checklist AMOA / Business Analyst</h2>
+            
+            <ul class="nav nav-pills mb-4 justify-content-center" id="checklist-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="cadrage-tab" data-bs-toggle="pill" data-bs-target="#cadrage" type="button" role="tab">Cadrage</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="analyse-tab" data-bs-toggle="pill" data-bs-target="#analyse" type="button" role="tab">Analyse</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="design-tab" data-bs-toggle="pill" data-bs-target="#design" type="button" role="tab">Design</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tests-tab" data-bs-toggle="pill" data-bs-target="#tests" type="button" role="tab">Tests</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="livraison-tab" data-bs-toggle="pill" data-bs-target="#livraison" type="button" role="tab">Livraison</button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="checklist-tabs-content">
+                <div class="tab-pane fade show active" id="cadrage" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="50%">Élément</th>
+                                    <th>Objectif</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Note de cadrage rédigée</td>
+                                    <td>Définir le périmètre, enjeux, acteurs, jalons</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Gouvernance / RACI établi</td>
+                                    <td>Qui décide, qui valide, qui produit ?</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Cartographie des parties prenantes</td>
+                                    <td>Identifier sponsors, utilisateurs clés</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Analyse des besoins de haut niveau</td>
+                                    <td>Synthèse des besoins métiers</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Définition des objectifs SMART</td>
+                                    <td>Clarté, mesurabilité, faisabilité</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="analyse" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="50%">Élément</th>
+                                    <th>Objectif</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Personas définis</td>
+                                    <td>Connaître les profils utilisateurs</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Cartographie des processus métier (BPMN)</td>
+                                    <td>Visualiser les flux et activités</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Parcours utilisateurs / Customer Journey</td>
+                                    <td>Scénarios et irritants UX</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Analyse des irritants / gains</td>
+                                    <td>Définir priorités de résolution</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Glossaire métier</td>
+                                    <td>Uniformiser le vocabulaire</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="design" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="50%">Élément</th>
+                                    <th>Objectif</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cas d'usage UML rédigés</td>
+                                    <td>Modéliser les interactions utilisateur ↔ SI</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Wireframes / prototypes IHM</td>
+                                    <td>Valider visuellement le besoin</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Spécifications fonctionnelles détaillées</td>
+                                    <td>Document de référence pour la MOE</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>API First (Swagger / OpenAPI)</td>
+                                    <td>Définir les interfaces en amont</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Modèle de données logique (ERD)</td>
+                                    <td>Structuration des entités métier</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="tests" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="50%">Élément</th>
+                                    <th>Objectif</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Matrice de traçabilité (besoin → test)</td>
+                                    <td>Assurer la couverture des exigences</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Rédaction des scénarios de test</td>
+                                    <td>Tester chaque fonctionnalité livrée</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Définition des critères d'acceptation</td>
+                                    <td>Valider en sprint ou en recette</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Gestion des anomalies</td>
+                                    <td>Remontées, priorisation, résolution</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="livraison" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="50%">Élément</th>
+                                    <th>Objectif</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Plan de conduite du changement</td>
+                                    <td>Communication, formation, support</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Documentation utilisateur</td>
+                                    <td>Guides et tutoriels</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Évaluation des gains métiers</td>
+                                    <td>ROI, performance, efficacité</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                                <tr>
+                                    <td>Retour d'expérience / bilan projet</td>
+                                    <td>Capitalisation pour les suivants</td>
+                                    <td><input type="checkbox" class="form-check-input"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-primary me-2">
+                    <i class="fas fa-download me-2"></i>Télécharger la checklist
+                </button>
+                <button class="btn btn-outline-primary">
+                    <i class="fas fa-print me-2"></i>Version imprimable
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Référentiel Documenté -->
+    <section id="referentiel" class="py-5">
+        <div class="container">
+            <h2 class="section-title text-center">📚 Référentiel Documenté - AMOA / BA</h2>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-folder-open me-2"></i>Structure de livrables standard</h4>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Dossier</th>
+                                            <th>Contenu attendu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>01_Cadrage</td>
+                                            <td>Note de cadrage, RACI, analyse d'impact</td>
+                                        </tr>
+                                        <tr>
+                                            <td>02_Besoins_Métier</td>
+                                            <td>BPMN, parcours utilisateurs, personas</td>
+                                        </tr>
+                                        <tr>
+                                            <td>03_Design_Fonctionnel</td>
+                                            <td>Cas d'usage, maquettes, specs, APIs</td>
+                                        </tr>
+                                        <tr>
+                                            <td>04_Architecture</td>
+                                            <td>Modèle de données, architecture fonctionnelle</td>
+                                        </tr>
+                                        <tr>
+                                            <td>05_Tests</td>
+                                            <td>Cas de tests, critères d'acceptation, plan de tests</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-file-signature me-2"></i>Nomenclature des fichiers</h4>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Type de document</th>
+                                            <th>Nom de fichier</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Note de cadrage</td>
+                                            <td>NDC_PROJET_V1.0.docx</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Processus BPMN</td>
+                                            <td>BPMN_ProcessusDemandeV1.drawio</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cas d'usage</td>
+                                            <td>CU_DemanderConge_V1.uml</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Spécification API</td>
+                                            <td>API_LeaveRequest_Swagger.yaml</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Wireframe</td>
+                                            <td>WF_DemandeConge_V1.figma</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-toolbox me-2"></i>Templates & outils</h4>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Type de livrable</th>
+                                            <th>Format</th>
+                                            <th>Outil</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Cadrage</td>
+                                            <td>Word</td>
+                                            <td>Word / Notion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BPMN</td>
+                                            <td>.drawio</td>
+                                            <td>Draw.io / Bizagi</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cas d'usage</td>
+                                            <td>.uml</td>
+                                            <td>StarUML / Lucidchart</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Specs fonctionnelles</td>
+                                            <td>Word / Markdown</td>
+                                            <td>Word / Notion</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maquettes</td>
+                                            <td>.fig</td>
+                                            <td>Figma</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card-dashboard h-100">
+                        <div class="card-body">
+                            <h4><i class="fas fa-chart-bar me-2"></i>Indicateurs clés</h4>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Indicateur</th>
+                                            <th>Cible minimale</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>% de projets avec kit BA complet</td>
+                                            <td>80%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Couverture des exigences par tests</td>
+                                            <td>90%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Réutilisation de modèles standards</td>
+                                            <td>70%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Satisfaction des métiers (sur 10)</td>
+                                            <td>≥ 8</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Délai de production des specs</td>
+                                            <td>≤ 10 jours</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-project-diagram me-2"></i>Portail Business Analyst 360°</h5>
+                    <p>Référentiel complet des bonnes pratiques et méthodologies.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">© 2023 - Tous droits réservés</p>
+                    <p class="small mb-0">Dernière mise à jour : 15/06/2023</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Dimensions Chart
+        const dimensionsCtx = document.getElementById('dimensionsChart').getContext('2d');
+        const dimensionsChart = new Chart(dimensionsCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Métier', 'Utilisateur', 'Données', 'Systèmes', 'KPIs/ROI', 'Gouvernance'],
+                datasets: [{
+                    label: 'Projet RH',
+                    data: [9, 8, 7, 6, 7, 8],
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(52, 152, 219, 1)'
+                }, {
+                    label: 'Projet Commercial',
+                    data: [7, 9, 6, 5, 8, 6],
+                    backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                    borderColor: 'rgba(46, 204, 113, 1)',
+                    pointBackgroundColor: 'rgba(46, 204, 113, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(46, 204, 113, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+        
+        // Tools Usage Chart
+        const toolsCtx = document.getElementById('toolsUsageChart').getContext('2d');
+        const toolsChart = new Chart(toolsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Modélisation', 'Collaboration', 'Documentation', 'Analyse'],
+                datasets: [{
+                    label: 'Utilisation (heures/semaine)',
+                    data: [12, 8, 6, 10],
+                    backgroundColor: [
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(46, 204, 113, 0.7)',
+                        'rgba(155, 89, 182, 0.7)',
+                        'rgba(241, 196, 15, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(52, 152, 219, 1)',
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(155, 89, 182, 1)',
+                        'rgba(241, 196, 15, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Project Timeline Chart
+        const timelineCtx = document.getElementById('projectTimelineChart').getContext('2d');
+        const timelineChart = new Chart(timelineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4', 'Semaine 5', 'Semaine 6', 'Semaine 7', 'Semaine 8', 'Semaine 9', 'Semaine 10', 'Semaine 11'],
+                datasets: [{
+                    label: 'Avancement réel',
+                    data: [10, 20, 25, 40, 50, 60, 70, 75, 80, 85, 90],
+                    borderColor: 'rgba(46, 204, 113, 1)',
+                    backgroundColor: 'rgba(46, 204, 113, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }, {
+                    label: 'Avancement prévu',
+                    data: [15, 25, 35, 45, 55, 65, 75, 85, 90, 95, 100],
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderDash: [5, 5],
+                    backgroundColor: 'transparent',
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Effort Distribution Chart
+        const effortCtx = document.getElementById('effortDistributionChart').getContext('2d');
+        const effortChart = new Chart(effortCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Analyse', 'Modélisation', 'Documentation', 'Coordination', 'Validation'],
+                datasets: [{
+                    data: [25, 20, 15, 30, 10],
+                    backgroundColor: [
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(46, 204, 113, 0.7)',
+                        'rgba(155, 89, 182, 0.7)',
+                        'rgba(241, 196, 15, 0.7)',
+                        'rgba(231, 76, 60, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(52, 152, 219, 1)',
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(155, 89, 182, 1)',
+                        'rgba(241, 196, 15, 1)',
+                        'rgba(231, 76, 60, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
