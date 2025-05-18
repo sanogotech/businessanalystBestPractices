@@ -2,6 +2,7 @@
 
 ## 📌 Contexte Général
 
+
 Une PME vend des produits électroniques en ligne via un site web. Elle gère tout en interne : commandes, stock, facturation et livraisons. Le directeur remarque :
 
 * Des **retards fréquents** de livraison.
