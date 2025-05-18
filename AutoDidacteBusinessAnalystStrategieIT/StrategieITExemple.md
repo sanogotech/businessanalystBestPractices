@@ -11,6 +11,43 @@ Une stratégie IT mal définie ou improvisée peut entraîner des coûts importa
 
 **La bonne stratégie IT est progressive** : elle s’adapte à la maturité de l’entreprise, au rythme d’adoption des utilisateurs, et permet de gérer les risques liés à la transformation digitale.
 
+
+### Contexte
+
+Aujourd’hui, la transformation numérique est devenue incontournable pour les entreprises, et plus particulièrement pour les PME évoluant dans le secteur du commerce électronique (e-commerce). Ces entreprises doivent s’adapter à un environnement très concurrentiel, répondre aux attentes élevées des consommateurs, et maîtriser des volumes importants de données et d’opérations.
+
+La gestion informatique (IT) dans ce contexte ne se limite plus à un simple support technique. Elle devient un **levier stratégique** pour améliorer la performance globale, accélérer la croissance, et assurer la pérennité de l’entreprise.
+
+---
+
+### Enjeux
+
+* **Compétitivité** : Face à des géants du secteur et une concurrence croissante, les PME doivent automatiser leurs processus pour gagner en rapidité et qualité.
+* **Satisfaction client** : Offrir un parcours d’achat fluide, des délais de livraison rapides et un support client réactif.
+* **Réduction des coûts** : Limiter les erreurs humaines, éviter les doublons dans les opérations, et optimiser les ressources.
+* **Agilité** : Pouvoir s’adapter rapidement aux évolutions du marché, aux tendances technologiques et aux attentes des clients.
+
+---
+
+### Défis
+
+* **Ressources limitées** : Budget, compétences techniques et temps souvent restreints dans une PME.
+* **Gestion du changement** : Adoption par les collaborateurs des nouveaux outils et processus.
+* **Sécurité des données** : Protection des informations clients et conformité aux réglementations (ex : RGPD).
+* **Intégration des systèmes** : Faire communiquer entre eux plusieurs outils parfois hétérogènes (site web, ERP, CRM, etc.).
+
+---
+
+### Objectifs de la stratégie IT
+
+1. **Structurer les systèmes d’information** pour une gestion efficace et intégrée.
+2. **Automatiser les processus clés** (gestion des commandes, stocks, facturation).
+3. **Améliorer la visibilité** sur la performance via des indicateurs fiables.
+4. **Garantir une adoption réussie** par les équipes avec une formation et un support adaptés.
+5. **Établir une base solide** permettant des évolutions futures (modularité, scalabilité).
+6. **Assurer la sécurité** des données et la conformité réglementaire.
+
+
 ---
 
 ## Partie 1 : Comprendre le contexte et les contraintes
