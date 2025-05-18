@@ -187,10 +187,7 @@ La gestion informatique (IT) dans ce contexte ne se limite plus à un simple sup
 | **Phase 4** | Formation des utilisateurs (gestionnaires, comptables). Ateliers pratiques et création de guides utilisateurs. | 4 semaines    | Responsable formation          | Sessions de formation + supports écrits  |
 | **Phase 5** | Déploiement CRM et formation associée. Définition des processus clients et paramétrage.                        | 6 semaines    | Chef de projet CRM, équipe IT  | CRM fonctionnel et processus définis     |
 | **Phase 6** | Mise en place chatbot – conception, développement, tests, déploiement progressif.                              | 8 semaines    | Équipe IT, support client      | Chatbot actif et retours collectés       |
-| **Phase 7** | Intégration BI – collecte des besoins, installation, création tableaux de bord                                 |               |                                |                                          |
-
-
-personnalisés.                    | 8 semaines    | Analyste BI, direction          | Tableaux de bord en production          |
+| **Phase 7** | Intégration BI – collecte des besoins, installation, création tableaux de bord                                 |               |                                |                                          |personnalisés.                    | 8 semaines    | Analyste BI, direction          | Tableaux de bord en production          |
 \| **Phase 8**        | Évaluation globale, ajustements, et planification des évolutions futures.                                        | 2 semaines    | Comité pilotage                 | Rapport final et feuille de route IT   |
 
 ---
