@@ -1,5 +1,6 @@
 # 📌 Rôles Clés et Livrables dans un Projet de Transformation Digitale – Secteur Eau / Électricité en Afrique
 
+
 ## Introduction
 
 Dans les grands groupes de distribution d’eau et d’électricité, les projets de transformation digitale impliquent de multiples acteurs répartis entre **Métiers, AMOA / Transformation Digitale et MOE / DSI**. La réussite d’un projet dépend de la **clarté des rôles, des interactions et des livrables**.
