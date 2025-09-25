@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Transformation Digitale - Secteur Eau/Électricité Afrique</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #00a8e8;
+            --water-blue: #1e90ff;
+            --energy-orange: #ff8c00;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --white-color: #ffffff;
+            --grey-text: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            padding-top: 2rem;
+        }
+
+        .quiz-container {
+            max-width: 900px;
+            margin: auto;
+            background-color: var(--white-color);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .quiz-header h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .quiz-header p {
+            text-align: center;
+            color: var(--grey-text);
+            margin-bottom: 2rem;
+        }
+
+        .progress-container {
+            margin-bottom: 1.5rem;
+        }
+
+        #question-counter {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        #question-card {
+            border: none;
+            border-radius: 10px;
+            padding: 2rem;
+            background-color: #fdfdfd;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        #question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 2px solid #ecf0f1;
+            background-color: var(--white-color);
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            border-color: var(--energy-orange);
+            background-color: #fff9f5;
+        }
+        
+        .option-btn.correct {
+            background-color: #e9f7ef;
+            border-color: var(--success-color);
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .option-btn.incorrect {
+            background-color: #fdeded;
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+            font-weight: 600;
+        }
+
+        #explanation-box {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        #explanation-box h5 {
+            font-weight: 700;
+        }
+
+        .explanation-correct {
+             background-color: #e9f7ef;
+             border-left: 5px solid var(--success-color);
+        }
+
+        .explanation-incorrect {
+            background-color: #fdeded;
+            border-left: 5px solid var(--danger-color);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .nav-btn {
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+        }
+
+        /* Modal styling */
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--water-blue) 100%);
+            color: var(--white-color);
+        }
+
+        .modal-title-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+        
+        .final-score {
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+        
+        .score-text {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1><i class="fas fa-brain" style="color:var(--energy-orange);"></i> Quiz Transformation Digitale</h1>
+                <p>Testez vos connaissances sur la transformation digitale dans le secteur de l'eau et de l'électricité en Afrique</p>
+            </div>
+
+            <div class="progress-container">
+                 <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span id="question-counter">Question 1 / 40</span>
+                    <span id="current-score">Score: 0</span>
+                 </div>
+                <div class="progress" style="height: 10px;">
+                    <div id="progress-bar" class="progress-bar bg-info" role="progressbar" style="width: 2.5%;" aria-valuenow="2.5" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+            <div id="question-card" class="card">
+                <div class="card-body">
+                    <h2 id="question-text">Chargement de la question...</h2>
+                    <div id="options-container">
+                        <!-- Les boutons d'options seront insérés ici par JavaScript -->
+                    </div>
+                    <div id="explanation-box" class="d-none">
+                        <h5 id="explanation-title"></h5>
+                        <p id="explanation-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-navigation">
+                <button id="prev-btn" class="btn btn-outline-secondary nav-btn" disabled><i class="fas fa-arrow-left"></i> Précédent</button>
+                <button id="next-btn" class="btn btn-primary nav-btn">Suivant <i class="fas fa-arrow-right"></i></button>
+                <button id="finish-btn" class="btn btn-success nav-btn d-none">Terminer & Voir les Résultats</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for results -->
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultsModalLabel"><i class="fas fa-trophy modal-title-icon"></i>Résultats du Quiz</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <h4 class="score-text">Votre score final est :</h4>
+                    <p class="final-score" id="final-score-percentage">0%</p>
+                    <p class="text-muted fs-5">
+                        <span id="final-score-correct">0</span> sur 
+                        <span id="final-score-total">0</span> bonnes réponses
+                    </p>
+                    <hr>
+                    <div id="final-recommendations"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="restart-quiz-btn"><i class="fas fa-redo"></i> Recommencer le quiz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const quizData = {
+            questions: [
+                // Section 1: Rôles et responsabilités
+                {
+                    question: "Quel est le rôle principal du Business Analyst (BA) dans un projet de transformation digitale ?",
+                    options: [
+                        "Développer les applications techniques",
+                        "Interface stratégique entre Métiers, AMOA et MOE",
+                        "Gérer le budget du projet",
+                        "Superviser la sécurité informatique"
+                    ],
+                    correctAnswer: "Interface stratégique entre Métiers, AMOA et MOE",
+                    explanation: "Le BA agit comme un pont entre les différentes parties prenantes, traduisant les besoins métiers en spécifications techniques et assurant la cohérence fonctionnelle du projet."
+                },
+                {
+                    question: "En cas d'absence du Product Owner, qui peut temporairement répondre aux questions des développeurs ?",
+                    options: [
+                        "Le Chef de Projet MOE uniquement",
+                        "Le Scrum Master uniquement",
+                        "Le Business Analyst et parfois le Chef de Projet MOE",
+                        "Aucun rôle ne peut le remplacer"
+                    ],
+                    correctAnswer: "Le Business Analyst et parfois le Chef de Projet MOE",
+                    explanation: "Le BA est le relais principal du PO côté fonctionnel, tandis que le Chef de Projet MOE peut faciliter l'échange technique, mais aucun ne peut prendre de décision métier majeure."
+                },
+                {
+                    question: "Quelle est la responsabilité principale du Product Owner dans un projet de transformation digitale ?",
+                    options: [
+                        "Gérer l'équipe de développement",
+                        "Définir l'architecture technique",
+                        "Maximiser la valeur du produit et prioriser le backlog",
+                        "Assurer la sécurité des données"
+                    ],
+                    correctAnswer: "Maximiser la valeur du produit et prioriser le backlog",
+                    explanation: "Le PO représente les intérêts métiers et est responsable de la vision produit, de la priorisation des fonctionnalités et de la valeur délivrée."
+                },
+                {
+                    question: "Quel rôle est responsable de la conception technique et de la cohérence du système d'information ?",
+                    options: [
+                        "Business Analyst",
+                        "Architecte SI",
+                        "Chef de Projet MOE",
+                        "Expert Cybersécurité"
+                    ],
+                    correctAnswer: "Architecte SI",
+                    explanation: "L'Architecte SI conçoit l'architecture technique globale et veille à sa cohérence, en collaboration avec les développeurs et le BA/PO."
+                },
+                {
+                    question: "Qui est responsable de l'adoption des solutions et de la formation des métiers ?",
+                    options: [
+                        "Responsable Change / Formation",
+                        "Product Owner",
+                        "Scrum Master",
+                        "Analyste UX/UI"
+                    ],
+                    correctAnswer: "Responsable Change / Formation",
+                    explanation: "Ce rôle accompagne le changement organisationnel, forme les utilisateurs et facilite l'adoption des nouvelles solutions digitales."
+                },
+                {
+                    question: "Quel rôle garantit la cohérence et l'intégration des systèmes existants et nouveaux ?",
+                    options: [
+                        "Coordinateur Intégration / API",
+                        "Architecte SI",
+                        "Responsable DevOps",
+                        "Chef de Projet MOE"
+                    ],
+                    correctAnswer: "Coordinateur Intégration / API",
+                    explanation: "Ce rôle spécifique est crucial dans les projets de transformation digitale pour assurer l'interopérabilité entre les différents systèmes."
+                },
+                {
+                    question: "Qui est responsable de la sécurité SI, de la conformité et de la protection des données ?",
+                    options: [
+                        "Expert Cybersécurité / IT Security",
+                        "Architecte SI",
+                        "Chef de Projet MOE",
+                        "Responsable DevOps"
+                    ],
+                    correctAnswer: "Expert Cybersécurité / IT Security",
+                    explanation: "Ce rôle évalue les risques, définit les politiques de sécurité et assure la conformité aux normes comme RGPD ou ISO27001."
+                },
+                {
+                    question: "Quel rôle prépare et analyse les données pour le pilotage métier ?",
+                    options: [
+                        "Business Analyst",
+                        "Analyste Data / Data Engineer",
+                        "Product Owner",
+                        "Directions Métiers"
+                    ],
+                    correctAnswer: "Analyste Data / Data Engineer",
+                    explanation: "Ce rôle conçoit les modèles de données, les pipelines ETL et crée les dashboards pour le pilotage métier."
+                },
+                {
+                    question: "Qui facilite Scrum, supprime les obstacles et veille à la communication Agile ?",
+                    options: [
+                        "Scrum Master",
+                        "Product Owner",
+                        "Chef de Projet MOE",
+                        "Business Analyst"
+                    ],
+                    correctAnswer: "Scrum Master",
+                    explanation: "Le Scrum Master est un servant-leader qui aide l'équipe à adopter Scrum et à optimiser son fonctionnement."
+                },
+                {
+                    question: "Quel rôle conçoit l'expérience utilisateur et les interfaces ?",
+                    options: [
+                        "Analyste UX/UI",
+                        "Business Analyst",
+                        "Développeurs",
+                        "Product Owner"
+                    ],
+                    correctAnswer: "Analyste UX/UI",
+                    explanation: "Ce rôle crée les wireframes, maquettes et prototypes pour optimiser l'expérience utilisateur des applications."
+                },
+
+                // Section 2: Processus et méthodologies
+                {
+                    question: "Quelle est la particularité fréquente dans les projets de transformation digitale en Afrique mentionnée dans le document ?",
+                    options: [
+                        "Absence permanente du Product Owner",
+                        "Manque de budget",
+                        "Absence ponctuelle du Product Owner",
+                        "Résistance totale au changement"
+                    ],
+                    correctAnswer: "Absence ponctuelle du Product Owner",
+                    explanation: "Cette situation nécessite des processus de substitution clairs, avec le BA comme relais fonctionnel principal."
+                },
+                {
+                    question: "Quelle est la bonne pratique recommandée en cas d'absence du PO ?",
+                    options: [
+                        "Prendre des décisions métier importantes",
+                        "Documenter toutes les questions et réponses pour validation ultérieure",
+                        "Arrêter le développement jusqu'au retour du PO",
+                        "Laisser les développeurs décider seuls"
+                    ],
+                    correctAnswer: "Documenter toutes les questions et réponses pour validation ultérieure",
+                    explanation: "La transparence et la traçabilité sont essentielles pour maintenir la cohérence lorsque le PO n'est pas disponible."
+                },
+                {
+                    question: "Quelle direction est responsable de fournir les besoins opérationnels ?",
+                    options: [
+                        "AMOA / Transformation Digitale",
+                        "MOE / DSI",
+                        "Directions Métiers",
+                        "La direction générale uniquement"
+                    ],
+                    correctAnswer: "Directions Métiers",
+                    explanation: "Les directions métiers (Eau, Électricité, Commercial, etc.) expriment les besoins et valident les solutions proposées."
+                },
+                {
+                    question: "Quel est le principal défi de la transformation digitale dans le secteur de l'eau/électricité en Afrique ?",
+                    options: [
+                        "Manque de compétences techniques",
+                        "Infrastructures parfois vieillissantes et défis d'accès en zones rurales",
+                        "Résistance culturelle à la technologie",
+                        "Absence de réglementation"
+                    ],
+                    correctAnswer: "Infrastructures parfois vieillissantes et défis d'accès en zones rurales",
+                    explanation: "Le contexte africain présente des défis spécifiques liés aux infrastructures et à la couverture géographique."
+                },
+                {
+                    question: "Quel est l'objectif des solutions mobiles dans ce secteur ?",
+                    options: [
+                        "Remplacer complètement les systèmes existants",
+                        "Améliorer l'accès aux services dans les zones mal desservies",
+                        "Réduire les coûts de personnel",
+                        "Moderniser l'image de l'entreprise"
+                    ],
+                    correctAnswer: "Améliorer l'accès aux services dans les zones mal desservies",
+                    explanation: "Les applications mobiles permettent d'étendre la couverture des services, particulièrement importantes dans les contextes où l'accès physique est limité."
+                },
+                {
+                    question: "Quelle méthodologie est particulièrement adaptée aux projets de transformation digitale ?",
+                    options: [
+                        "Cycle en V traditionnel",
+                        "Approche Agile avec itérations courtes",
+                        "Modèle en cascade strict",
+                        "Développement en silos"
+                    ],
+                    correctAnswer: "Approche Agile avec itérations courtes",
+                    explanation: "L'agilité permet de s'adapter aux changements fréquents et de livrer de la valeur rapidement dans des environnements complexes."
+                },
+                {
+                    question: "Quel est le principal avantage des microservices dans ce contexte ?",
+                    options: [
+                        "Réduction des coûts de développement",
+                        "Montée en charge facilitée et maintenance simplifiée",
+                        "Formation plus rapide des équipes",
+                        "Sécurité renforcée"
+                    ],
+                    correctAnswer: "Montée en charge facilitée et maintenance simplifiée",
+                    explanation: "L'architecture microservices permet de mieux gérer la croissance du nombre de clients et de maintenir des systèmes complexes."
+                },
+                {
+                    question: "Quelle est la première étape recommandée pour gérer l'absence du PO ?",
+                    options: [
+                        "Escalader immédiatement à la direction",
+                        "Le BA clarifie les user stories avec les développeurs",
+                        "Reporter toutes les décisions",
+                        "Donner pleins pouvoirs au Chef de Projet MOE"
+                    ],
+                    correctAnswer: "Le BA clarifie les user stories avec les développeurs",
+                    explanation: "Le BA, étant l'interface fonctionnelle, est le mieux placé pour apporter des clarifications sans outrepasser son rôle."
+                },
+                {
+                    question: "Quelle est la limite du rôle du Chef de Projet MOE en l'absence du PO ?",
+                    options: [
+                        "Il ne peut pas modifier la vision produit ni les priorités",
+                        "Il ne peut pas parler avec l'équipe de développement",
+                        "Il doit prendre toutes les décisions à la place du PO",
+                        "Il doit arrêter le projet"
+                    ],
+                    correctAnswer: "Il ne peut pas modifier la vision produit ni les priorités",
+                    explanation: "Le Chef de Projet MOE peut faciliter la communication et clarifier des points techniques, mais ne doit pas s'arroger les prérogatives métier du PO."
+                },
+                {
+                    question: "Quel est le principal livrable du Business Analyst ?",
+                    options: [
+                        "Code applicatif",
+                        "Cahier des charges, user stories et modèles de processus",
+                        "Architecture technique",
+                        "Pipelines CI/CD"
+                    ],
+                    correctAnswer: "Cahier des charges, user stories et modèles de processus",
+                    explanation: "Le BA produit la documentation fonctionnelle qui sert de base au développement."
+                },
+
+                // Section 3: Technologies et mise en œuvre
+                {
+                    question: "Quelle technologie est particulièrement mentionnée pour les compteurs intelligents ?",
+                    options: [
+                        "Blockchain",
+                        "IoT (Internet of Things)",
+                        "Réalité augmentée",
+                        "Intelligence artificielle"
+                    ],
+                    correctAnswer: "IoT (Internet of Things)",
+                    explanation: "Les compteurs communicants utilisent des technologies IoT pour remonter les données de consommation en temps réel."
+                },
+                {
+                    question: "Quel est l'avantage des dashboards temps réel mentionné dans les retours d'expérience ?",
+                    options: [
+                        "Réduction du temps de reporting de 40%",
+                        "Élimination complète des rapports papier",
+                        "Automatisation totale de la facturation",
+                        "Suppression des erreurs humaines"
+                    ],
+                    correctAnswer: "Réduction du temps de reporting de 40%",
+                    explanation: "Les dashboards permettent un accès instantané aux données critiques, optimisant les processus décisionnels."
+                },
+                {
+                    question: "Quel bénéfice a été observé avec l'ERP de facturation de l'eau ?",
+                    options: [
+                        "Réduction de 20% du temps de traitement des anomalies",
+                        "Suppression de la facturation papier",
+                        "Augmentation des tarifs",
+                        "Réduction des effectifs"
+                    ],
+                    correctAnswer: "Réduction de 20% du temps de traitement des anomalies",
+                    explanation: "La digitalisation des processus de facturation permet des gains d'efficacité significatifs dans la gestion des anomalies."
+                },
+                {
+                    question: "Quelle approche est recommandée pour l'intégration avec les systèmes existants ?",
+                    options: [
+                        "Remplacer tous les systèmes anciens",
+                        "Développer une intégration progressive avec des API",
+                        "Maintenir les systèmes en parallèle sans intégration",
+                        "Externaliser toute l'intégration"
+                    ],
+                    correctAnswer: "Développer une intégration progressive avec des API",
+                    explanation: "Une approche progressive via des API permet de moderniser les systèmes sans disruption des services existants."
+                },
+                {
+                    question: "Quel est l'objectif des pipelines CI/CD dans ces projets ?",
+                    options: [
+                        "Réduire les coûts de développement",
+                        "Automatiser les déploiements et assurer la qualité",
+                        "Former plus rapidement les nouveaux développeurs",
+                        "Surveiller les performances en production"
+                    ],
+                    correctAnswer: "Automatiser les déploiements et assurer la qualité",
+                    explanation: "L'intégration et le déploiement continus permettent des livraisons fréquentes et fiables."
+                },
+                {
+                    question: "Quelle est la particularité des projets dans le secteur de l'eau/électricité par rapport à d'autres secteurs ?",
+                    options: [
+                        "Ils nécessitent une coordination avec les régulateurs",
+                        "Ils sont moins complexes techniquement",
+                        "Ils ont des cycles de développement plus courts",
+                        "Ils ne nécessitent pas de transformation digitale"
+                    ],
+                    correctAnswer: "Ils nécessitent une coordination avec les régulateurs",
+                    explanation: "Le secteur étant régulé, les projets doivent respecter des cadres stricts et souvent obtenir des validations réglementaires."
+                },
+                {
+                    question: "Quel est le principal défi de l'adoption des solutions digitales par les agents terrain ?",
+                    options: [
+                        "Le coût des équipements",
+                        "La formation et l'accompagnement au changement",
+                        "La complexité technique des applications",
+                        "Le manque de couverture réseau"
+                    ],
+                    correctAnswer: "La formation et l'accompagnement au changement",
+                    explanation: "L'humain est au cœur de la transformation digitale, nécessitant un accompagnement adapté pour garantir l'adoption."
+                },
+                {
+                    question: "Quelle métrique est cruciale pour mesurer le succès de l'adoption ?",
+                    options: [
+                        "Le nombre de fonctionnalités développées",
+                        "Le taux d'utilisation effective par les métiers",
+                        "La vitesse de développement",
+                        "Le retour sur investissement financier"
+                    ],
+                    correctAnswer: "Le taux d'utilisation effective par les métiers",
+                    explanation: "L'adoption réelle est le meilleur indicateur de la valeur délivrée par la transformation digitale."
+                },
+                {
+                    question: "Quelle approche est recommandée pour le déploiement dans un contexte africain ?",
+                    options: [
+                        "Déploiement big-bang sur tout le territoire",
+                        "Déploiement progressif par sites pilotes",
+                        "Externalisation complète du déploiement",
+                        "Déploiement uniquement dans les zones urbaines"
+                    ],
+                    correctAnswer: "Déploiement progressif par sites pilotes",
+                    explanation: "Une approche progressive permet d'ajuster la solution aux réalités locales et de construire une adoption solide."
+                },
+                {
+                    question: "Quel est l'avantage des solutions cloud dans ce contexte ?",
+                    options: [
+                        "Réduction des investissements infrastructurels initiaux",
+                        "Élimination de tous les risques de sécurité",
+                        "Suppression du besoin de compétences techniques locales",
+                        "Garantie de performance optimale en toutes circonstances"
+                    ],
+                    correctAnswer: "Réduction des investissements infrastructurels initiaux",
+                    explanation: "Le cloud permet de démarrer rapidement sans lourds investissements en infrastructure, particulièrement avantageux dans des contextes aux budgets contraints."
+                },
+
+                // Section 4: Gestion de projet et bonnes pratiques
+                {
+                    question: "Quelle est la meilleure pratique pour gérer les priorités en l'absence du PO ?",
+                    options: [
+                        "Le BA prend les décisions de priorisation",
+                        "On suit strictement le backlog tel qu'il était avant l'absence",
+                        "On travaille sur les tâches techniques en attendant",
+                        "On consulte un comité de direction"
+                    ],
+                    correctAnswer: "On suit strictement le backlog tel qu'il était avant l'absence",
+                    explanation: "En l'absence du PO, il est crucial de ne pas modifier les priorités établies pour maintenir la cohérence du produit."
+                },
+                {
+                    question: "Quel est le risque principal si le BA prend des décisions métier en l'absence du PO ?",
+                    options: [
+                        "Ralentissement du développement",
+                        "Incohérence avec la vision produit",
+                        "Augmentation des coûts",
+                        "Problèmes techniques"
+                    ],
+                    correctAnswer: "Incohérence avec la vision produit",
+                    explanation: "Seul le PO a la légitimité et la vision globale pour prendre des décisions métier alignées avec la stratégie produit."
+                },
+                {
+                    question: "Comment doit-on gérer les questions sans réponse en l'absence du PO ?",
+                    options: [
+                        "Les développeurs prennent des décisions techniques seuls",
+                        "On documente les questions pour traitement au retour du PO",
+                        "On arrête le travail sur les fonctionnalités concernées",
+                        "On consulte directement les directions métiers"
+                    ],
+                    correctAnswer: "On documente les questions pour traitement au retour du PO",
+                    explanation: "La documentation systématique assure la traçabilité et permet au PO de prendre des décisions éclairées à son retour."
+                },
+                {
+                    question: "Quelle est la durée typique d'un projet de transformation digitale dans ce secteur ?",
+                    options: [
+                        "Quelques semaines",
+                        "3 à 6 mois",
+                        "6 à 18 mois",
+                        "Plus de 3 ans"
+                    ],
+                    correctAnswer: "6 à 18 mois",
+                    explanation: "Ces projets complexes nécessitent généralement des cycles de plusieurs mois à un an pour une mise en œuvre complète."
+                },
+                {
+                    question: "Quel est le facteur clé de succès le plus important selon le document ?",
+                    options: [
+                        "La puissance technologique",
+                        "La clarté des rôles et des interactions",
+                        "Le budget illimité",
+                        "L'externalisation complète"
+                    ],
+                    correctAnswer: "La clarté des rôles et des interactions",
+                    explanation: "La réussite dépend principalement de la coordination entre les multiples acteurs et de la compréhension partagée des responsabilités."
+                },
+                {
+                    question: "Quelle approche est recommandée pour la gestion des risques ?",
+                    options: [
+                        "Ignorer les risques mineurs",
+                        "Anticiper et documenter systématiquement les risques",
+                        "Traiter les risques seulement lorsqu'ils surviennent",
+                        "Externaliser la gestion des risques"
+                    ],
+                    correctAnswer: "Anticiper et documenter systématiquement les risques",
+                    explanation: "Une identification proactive des risques fonctionnels et techniques permet de mieux les mitiger."
+                },
+                {
+                    question: "Comment doit-on gérer les demandes de changement en cours de projet ?",
+                    options: [
+                        "Les refuser systématiquement",
+                        "Les intégrer immédiatement sans formalité",
+                        "Les évaluer via le processus de gestion du backlog",
+                        "Les reporter à la phase suivante du projet"
+                    ],
+                    correctAnswer: "Les évaluer via le processus de gestion du backlog",
+                    explanation: "Les demandes de changement doivent être évaluées par le PO et priorisées dans le backlog pour maintenir la cohérence du produit."
+                },
+                {
+                    question: "Quelle est la bonne attitude face aux obstacles techniques ?",
+                    options: [
+                        "Les cacher à la direction",
+                        "Les escalader au Scrum Master ou Chef de Projet MOE",
+                        "Arrêter le projet jusqu'à leur résolution",
+                        "Modifier les objectifs pour les contourner"
+                    ],
+                    correctAnswer: "Les escalader au Scrum Master ou Chef de Projet MOE",
+                    explanation: "La transparence et la résolution collaborative des obstacles sont essentielles en approche Agile."
+                },
+                {
+                    question: "Quelle méthode de communication est privilégiée entre les différentes directions ?",
+                    options: [
+                        "Communication écrite formelle uniquement",
+                        "Réunions hebdomadaires obligatoires",
+                        "Communication informelle et ateliers collaboratifs",
+                        "Communication via la hiérarchie uniquement"
+                    ],
+                    correctAnswer: "Communication informelle et ateliers collaboratifs",
+                    explanation: "Une communication fluide et directe favorise l'alignement et la résolution rapide des problèmes."
+                },
+                {
+                    question: "Quel est le principal indicateur de performance pour un projet de transformation digitale ?",
+                    options: [
+                        "Le respect des délais et du budget",
+                        "La valeur délivrée aux métiers et aux clients finaux",
+                        "Le nombre de lignes de code produites",
+                        "La satisfaction de l'équipe de développement"
+                    ],
+                    correctAnswer: "La valeur délivrée aux métiers et aux clients finaux",
+                    explanation: "La transformation digitale doit avant tout créer de la valeur métier tangible et améliorer l'expérience client."
+                }
+            ]
+        };
+
+        // DOM Elements
+        const questionCounterEl = document.getElementById('question-counter');
+        const currentScoreEl = document.getElementById('current-score');
+        const progressBarEl = document.getElementById('progress-bar');
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const explanationBoxEl = document.getElementById('explanation-box');
+        const explanationTitleEl = document.getElementById('explanation-title');
+        const explanationTextEl = document.getElementById('explanation-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        
+        // Modal Elements
+        const resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
+        const finalScoreCorrectEl = document.getElementById('final-score-correct');
+        const finalScoreTotalEl = document.getElementById('final-score-total');
+        const finalScorePercentageEl = document.getElementById('final-score-percentage');
+        const finalRecommendationsEl = document.getElementById('final-recommendations');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+
+        // Quiz State
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let questions = [];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            questions = shuffleArray([...quizData.questions]);
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            displayQuestion(currentQuestionIndex);
+            updateScoreDisplay();
+            resultsModal.hide();
+        }
+
+        function displayQuestion(index) {
+            // Hide explanation from previous question
+            explanationBoxEl.classList.add('d-none');
+            
+            const question = questions[index];
+            questionTextEl.textContent = question.question;
+            
+            // Clear previous options
+            optionsContainerEl.innerHTML = '';
+            
+            // Display options
+            question.options.forEach(optionText => {
+                const button = document.createElement('button');
+                button.textContent = optionText;
+                button.classList.add('btn', 'option-btn');
+                button.onclick = () => selectAnswer(button, optionText, index);
+                optionsContainerEl.appendChild(button);
+            });
+            
+            updateNavigation();
+            updateProgressBar();
+            
+            // If the user has already answered this question, show their answer
+            if (userAnswers[index] !== null) {
+                showAnswerFeedback(index);
+            }
+        }
+        
+        function selectAnswer(button, selectedAnswer, questionIndex) {
+            // Prevent re-answering
+            if (userAnswers[questionIndex] !== null) return;
+            
+            const question = questions[questionIndex];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+            
+            userAnswers[questionIndex] = {
+                selected: selectedAnswer,
+                correct: question.correctAnswer,
+                isCorrect: isCorrect
+            };
+            
+            if(isCorrect) {
+                score++;
+            }
+            updateScoreDisplay();
+            showAnswerFeedback(questionIndex);
+        }
+
+        function showAnswerFeedback(index) {
+            const userAnswer = userAnswers[index];
+            if (!userAnswer) return;
+
+            const question = questions[index];
+
+            // Disable all option buttons
+            const optionButtons = optionsContainerEl.querySelectorAll('.option-btn');
+            optionButtons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === userAnswer.correct) {
+                    btn.classList.add('correct');
+                } else if (btn.textContent === userAnswer.selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            // Show explanation
+            explanationTextEl.textContent = question.explanation;
+            if (userAnswer.isCorrect) {
+                explanationTitleEl.textContent = "Bravo, c'est la bonne réponse !";
+                explanationBoxEl.className = 'explanation-correct';
+            } else {
+                explanationTitleEl.textContent = "Explication :";
+                explanationBoxEl.className = 'explanation-incorrect';
+            }
+            explanationBoxEl.classList.remove('d-none');
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.classList.toggle('d-none', currentQuestionIndex === questions.length - 1);
+            finishBtn.classList.toggle('d-none', currentQuestionIndex !== questions.length - 1);
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBarEl.style.width = `${progress}%`;
+            progressBarEl.setAttribute('aria-valuenow', progress);
+            questionCounterEl.textContent = `Question ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+        
+        function updateScoreDisplay() {
+            currentScoreEl.textContent = `Score: ${score}`;
+        }
+
+        function handleNext() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+
+        function handlePrev() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+
+        function showFinalResults() {
+            const percentage = (score / questions.length) * 100;
+            let scoreColor;
+            let recommendationsHtml;
+
+            if (percentage >= 80) {
+                scoreColor = 'var(--success-color)';
+                recommendationsHtml = '<h5><i class="fas fa-star text-warning"></i> Excellent !</h5><p>Vous avez une compréhension approfondie de la transformation digitale dans le secteur eau/électricité en Afrique. Ces connaissances seront précieuses pour mener à bien vos projets.</p>';
+            } else if (percentage >= 50) {
+                scoreColor = 'var(--energy-orange)';
+                recommendationsHtml = '<h5><i class="fas fa-chart-line text-info"></i> Bonne connaissance !</h5><p>Vous maîtrisez les concepts clés. Pour approfondir, revoyez les explications des questions où vous avez eu des difficultés.</p>';
+            } else {
+                scoreColor = 'var(--danger-color)';
+                recommendationsHtml = '<h5><i class="fas fa-book-open text-secondary"></i> À approfondir</h5><p>Ce quiz a identifié des points à renforcer. Nous vous recommandons de revoir la matrice RACI et les bonnes pratiques pour les projets de transformation digitale.</p>';
+            }
+
+            finalScoreCorrectEl.textContent = score;
+            finalScoreTotalEl.textContent = questions.length;
+            finalScorePercentageEl.textContent = `${percentage.toFixed(0)}%`;
+            finalScorePercentageEl.style.color = scoreColor;
+            finalRecommendationsEl.innerHTML = recommendationsHtml;
+
+            resultsModal.show();
+        }
+
+        // Event Listeners
+        nextBtn.addEventListener('click', handleNext);
+        prevBtn.addEventListener('click', handlePrev);
+        finishBtn.addEventListener('click', showFinalResults);
+        restartQuizBtn.addEventListener('click', () => {
+            resultsModal.hide();
+            // A short delay to allow modal to close before restarting
+            setTimeout(startQuiz, 500);
+        });
+        
+        // Initial call
+        document.addEventListener('DOMContentLoaded', startQuiz);
+    </script>
+</body>
+</html>
