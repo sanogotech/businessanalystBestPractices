@@ -9,6 +9,7 @@ Le **Business Analyst (BA)** se positionne comme un **chef d’orchestre fonctio
 
 ## 🔹 Organigramme simplifié
 
+```
 **Direction Générale**
   ↳ **Directions Métiers** (Eau, Électricité, Commerciale, Finance, RH, Conformité)
   ↳ **Direction Transformation Digitale (AMOA – proche métiers)**
@@ -23,6 +24,7 @@ Le **Business Analyst (BA)** se positionne comme un **chef d’orchestre fonctio
     • Infrastructures & Cloud
     • Cybersécurité & Exploitation
     • Architectes SI, Développeurs, Experts IT
+```
 
 ---
 
