@@ -39,7 +39,7 @@ mindmap
     Direction Transformation Digitale (AMOA – proche métiers)
       Stratégie & Innovation
       Projets Métiers / Digitaux
-        Business Analysts (interface stratégique entre Métiers, MOA et MOE)
+        Business Analysts 
         Chefs de Projet AMOA
       Data & Analytics
       Gouvernance & Transformation
