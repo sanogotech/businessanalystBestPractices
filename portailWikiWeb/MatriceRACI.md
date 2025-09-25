@@ -191,19 +191,7 @@ flowchart TD
     SM --> PO
     SM --> BA
 
-    %% Livrables principaux (symbolisés comme notes)
-    BA -->|Cahiers des charges, User Stories, Modèles process| BA_LIV[""]
-    PO -->|Roadmap, Backlog priorisé, KPI produit| PO_LIV[""]
-    PM -->|Stratégie produit, Business cases, Plan lancement| PM_LIV[""]
-    UX -->|Wireframes, Maquettes, Prototypes| UX_LIV[""]
-    DEV -->|Code, API, Documentation technique| DEV_LIV[""]
-    QA -->|Cahiers de tests, Rapports anomalies, KPI qualité| QA_LIV[""]
-    ARCH -->|Architecture technique, Schémas, Guides paramétrage| ARCH_LIV[""]
-    DEVOPS -->|Pipelines CI/CD, Scripts déploiement| DEVOPS_LIV[""]
-    INT -->|Plan intégration, Tests interfaces, Documentation API| INT_LIV[""]
-    SEC -->|Politiques sécurité, Audit, Conformité RGPD/ISO| SEC_LIV[""]
-    CHANGE -->|Plan changement, Supports formation, Sessions ateliers| CHANGE_LIV[""]
-    DATA -->|Modèles données, Dashboards, Analyses KPI| DATA_LIV[""]
+ 
 ```
 
 ---
