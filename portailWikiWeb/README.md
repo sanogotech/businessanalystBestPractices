@@ -26,6 +26,30 @@ Le **Business Analyst (BA)** se positionne comme un **chef d’orchestre fonctio
 
 ---
 
+```
+mindmap
+  root((Direction Générale))
+    Directions Métiers
+      Eau
+      Électricité
+      Commerciale
+      Finance
+      RH
+      Conformité
+    Direction Transformation Digitale (AMOA – proche métiers)
+      Stratégie & Innovation
+      Projets Métiers / Digitaux
+        Business Analysts (interface stratégique entre Métiers, MOA et MOE)
+        Chefs de Projet AMOA
+      Data & Analytics
+      Gouvernance & Transformation
+    DSI (MOE – technique et infrastructure)
+      Développement & Intégration SI
+      Infrastructures & Cloud
+      Cybersécurité & Exploitation
+      Architectes SI, Développeurs, Experts IT
+```
+
 ## 🔹 TOP 40 Bonnes pratiques de collaboration BA – Métiers – AMOA – MOE
 
 ### 1. **Communication & Alignement stratégique**
