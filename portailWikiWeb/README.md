@@ -26,7 +26,7 @@ Le **Business Analyst (BA)** se positionne comme un **chef d’orchestre fonctio
 
 ---
 
-```
+```mermaid
 mindmap
   root((Direction Générale))
     Directions Métiers
