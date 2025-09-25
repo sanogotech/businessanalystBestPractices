@@ -73,3 +73,137 @@ Oui, c’est une situation fréquente dans les projets Agile ou de transformatio
 * Tout doit être **consigné et validé après le retour du PO**.
 
 
+--
+
+
+# 📌 Schéma des Rôles et Flux dans un Projet de Transformation Digitale – Secteur Eau / Électricité en Afrique
+
+## Introduction
+
+Dans les grands groupes de distribution d’eau et d’électricité, les projets de transformation digitale impliquent de nombreux acteurs répartis entre **Métiers, AMOA / Transformation Digitale et MOE / DSI**. La réussite du projet dépend de la **clarté des rôles, des interactions et des livrables**, ainsi que de la coordination entre équipes fonctionnelles et techniques.
+
+Le schéma ci-dessous présente une **vision graphique complète** :
+
+* Les **3 grandes directions**
+* Les **16 rôles clés**
+* Les **flux d’interaction principaux**
+* Les **livrables essentiels** associés à chaque rôle
+
+---
+
+## 1️⃣ Organisation en grandes directions
+
+* **Métiers** : Directions Eau, Électricité, Commercial, Finance, RH
+* **AMOA / Transformation Digitale** : BA, PO, Product Manager, Analyste UX/UI, Responsable Change / Formation, Analyste Data
+* **MOE / DSI** : Chef de Projet MOE, Architecte SI, Développeurs, QA/Test, Scrum Master, Responsable DevOps, Coordinateur Intégration, Expert Cybersécurité
+
+## 2️⃣ Flux d’interaction
+
+* **BA** : Interface stratégique entre Métiers ↔ AMOA ↔ MOE
+* **PO / Product Manager** : Priorisation backlog, vision produit
+* **Scrum Master** : Facilitation, communication agile
+* **Chef de Projet MOE** : Coordination technique, clarification besoins développeurs
+* **MOE** : Développement, tests, intégration, sécurité
+* **Métiers** : Validation, feedback, KPI, adoption
+
+## 3️⃣ Livrables principaux (symbolisés sur le schéma)
+
+* Cahiers des charges, user stories
+* Backlog produit / roadmap / KPI
+* Architecture SI, documentation technique
+* Tests, rapports QA
+* Wireframes / prototypes UX
+* Pipelines CI/CD et intégrations API
+* Plan de formation et adoption
+
+---
+
+## 4️⃣ Schéma Mermaid
+
+```mermaid
+flowchart TD
+    %% Directions
+    subgraph METIERS["Directions Métiers"]
+        DM_Eau("Eau")
+        DM_Elec("Électricité")
+        DM_Com("Commercial")
+        DM_Fin("Finance")
+        DM_RH("RH")
+    end
+
+    subgraph AMOA["AMOA / Transformation Digitale"]
+        BA("Business Analyst (BA)")
+        PO("Product Owner (PO)")
+        PM("Product Manager (PM)")
+        UX("Analyste UX/UI")
+        CHANGE("Responsable Change / Formation")
+        DATA("Analyste Data / Data Engineer")
+    end
+
+    subgraph MOE["MOE / DSI"]
+        CP_MOE("Chef de Projet MOE")
+        ARCH("Architecte SI")
+        DEV("Développeurs")
+        QA("QA / Test")
+        SM("Scrum Master")
+        DEVOPS("Responsable DevOps / CI-CD")
+        INT("Coordinateur Intégration / API")
+        SEC("Expert Cybersécurité / IT Security")
+    end
+
+    %% Interactions Métiers ↔ AMOA
+    DM_Eau --> BA
+    DM_Elec --> BA
+    DM_Com --> BA
+    DM_Fin --> BA
+    DM_RH --> BA
+
+    BA --> PO
+    BA --> CP_MOE
+    PO --> DEV
+    PO --> BA
+    PM --> PO
+    PM --> BA
+    UX --> DEV
+    DATA --> BA
+    DATA --> ARCH
+    CHANGE --> DM_Eau
+    CHANGE --> DM_Elec
+    CHANGE --> DM_Com
+    CHANGE --> DM_Fin
+    CHANGE --> DM_RH
+
+    %% Interactions AMOA ↔ MOE
+    BA --> CP_MOE
+    BA --> ARCH
+    CP_MOE --> DEV
+    CP_MOE --> QA
+    ARCH --> DEV
+    DEV --> QA
+    DEV --> INT
+    DEVOPS --> DEV
+    DEVOPS --> QA
+    SEC --> ARCH
+    SEC --> DEV
+    SEC --> DEVOPS
+    SM --> DEV
+    SM --> PO
+    SM --> BA
+
+    %% Livrables principaux (symbolisés comme notes)
+    BA -->|Cahiers des charges, User Stories, Modèles process| BA_LIV[""]
+    PO -->|Roadmap, Backlog priorisé, KPI produit| PO_LIV[""]
+    PM -->|Stratégie produit, Business cases, Plan lancement| PM_LIV[""]
+    UX -->|Wireframes, Maquettes, Prototypes| UX_LIV[""]
+    DEV -->|Code, API, Documentation technique| DEV_LIV[""]
+    QA -->|Cahiers de tests, Rapports anomalies, KPI qualité| QA_LIV[""]
+    ARCH -->|Architecture technique, Schémas, Guides paramétrage| ARCH_LIV[""]
+    DEVOPS -->|Pipelines CI/CD, Scripts déploiement| DEVOPS_LIV[""]
+    INT -->|Plan intégration, Tests interfaces, Documentation API| INT_LIV[""]
+    SEC -->|Politiques sécurité, Audit, Conformité RGPD/ISO| SEC_LIV[""]
+    CHANGE -->|Plan changement, Supports formation, Sessions ateliers| CHANGE_LIV[""]
+    DATA -->|Modèles données, Dashboards, Analyses KPI| DATA_LIV[""]
+```
+
+---
+
