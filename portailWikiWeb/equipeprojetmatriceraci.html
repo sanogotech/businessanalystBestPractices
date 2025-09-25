@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transformation Digitale - Secteur Eau/Électricité Afrique</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --secondary-color: #00a8e8;
+      --accent-color: #ff6b35;
+      --water-blue: #1e90ff;
+      --energy-orange: #ff8c00;
+      --light-bg: #f8f9fa;
+      --dark-bg: #343a40;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--water-blue) 100%);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: white;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--water-blue) 50%, var(--energy-orange) 100%);
+      color: white;
+      padding: 4rem 0;
+      margin-bottom: 3rem;
+      border-radius: 0 0 20px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      background-size: cover;
+      background-position: bottom;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      font-weight: 600;
+    }
+
+    .module-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .water-icon {
+      color: var(--water-blue);
+    }
+
+    .energy-icon {
+      color: var(--energy-orange);
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #004494;
+    }
+
+    .btn-water {
+      background-color: var(--water-blue);
+      color: white;
+    }
+
+    .btn-water:hover {
+      background-color: #1a7adb;
+      color: white;
+    }
+
+    .btn-energy {
+      background-color: var(--energy-orange);
+      color: white;
+    }
+
+    .btn-energy:hover {
+      background-color: #e07b00;
+      color: white;
+    }
+
+    .simulation-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+
+    .process-step {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 20px;
+    }
+
+    .process-step:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+    }
+
+    .process-step:after {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 20px;
+      width: 2px;
+      height: 100%;
+      background-color: var(--primary-color);
+    }
+
+    .process-step:last-child:after {
+      display: none;
+    }
+
+    .data-table {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    .data-table th {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .highlight-box {
+      background-color: rgba(0, 86, 179, 0.1);
+      border-left: 4px solid var(--primary-color);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .water-highlight {
+      background-color: rgba(30, 144, 255, 0.1);
+      border-left: 4px solid var(--water-blue);
+    }
+
+    .energy-highlight {
+      background-color: rgba(255, 140, 0, 0.1);
+      border-left: 4px solid var(--energy-orange);
+    }
+
+    .linked-modules {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .linked-module {
+      background-color: var(--light-bg);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: var(--primary-color);
+      border: 1px solid #ddd;
+    }
+
+    .tab-content {
+      padding: 1.5rem 0;
+    }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 2rem 0;
+      margin-top: 3rem;
+    }
+
+    /* Animation pour les cartes */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .module-card {
+      animation: fadeIn 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    /* Délai d'animation pour chaque carte */
+    .module-card:nth-child(1) { animation-delay: 0.1s; }
+    .module-card:nth-child(2) { animation-delay: 0.2s; }
+    .module-card:nth-child(3) { animation-delay: 0.3s; }
+    .module-card:nth-child(4) { animation-delay: 0.4s; }
+    .module-card:nth-child(5) { animation-delay: 0.5s; }
+    .module-card:nth-child(6) { animation-delay: 0.6s; }
+
+    /* RACI Matrix Styles */
+    .raci-matrix {
+      overflow-x: auto;
+    }
+
+    .raci-table {
+      min-width: 800px;
+    }
+
+    .raci-table th, .raci-table td {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .raci-table th:first-child, .raci-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .raci-badge {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      line-height: 30px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    .raci-r { background-color: #e74c3c; } /* Responsable */
+    .raci-a { background-color: #3498db; } /* Approbateur */
+    .raci-c { background-color: #2ecc71; } /* Consulté */
+    .raci-i { background-color: #f39c12; } /* Informé */
+
+    /* Mermaid diagram styling */
+    .mermaid-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow-x: auto;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 2rem 0;
+      }
+
+      .module-icon {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-lightning-charge me-2"></i>Transformation Digitale - Eau/Électricité Afrique
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#contexte">Contexte</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#raci">Matrice RACI</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#flux">Flux d'interaction</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#bonnes-pratiques">Bonnes pratiques</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#simulations">Simulations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ressources">Ressources</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="container text-center hero-content">
+      <h1 class="display-4 fw-bold mb-3">Transformation Digitale dans le Secteur de l'Eau et de l'Électricité en Afrique</h1>
+      <p class="lead mb-4">Découvrez les rôles clés, les interactions et les bonnes pratiques pour réussir vos projets de transformation digitale</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#raci" class="btn btn-light btn-lg px-4">Voir la matrice RACI</a>
+        <a href="#simulations" class="btn btn-outline-light btn-lg px-4">Essayer les simulations</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mb-5">
+    <section id="contexte" class="mb-5">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h2 class="mb-4">Contexte du Secteur en Afrique</h2>
+          <p class="lead">Les projets de transformation digitale dans les grands groupes de distribution d'eau et d'électricité en Afrique impliquent de multiples acteurs répartis entre <strong>Métiers, AMOA / Transformation Digitale et MOE / DSI</strong>.</p>
+          <div class="d-flex justify-content-center mt-4 flex-wrap">
+            <div class="px-4 text-center mb-3">
+              <i class="bi bi-droplet fs-1 water-icon"></i>
+              <p class="mt-2 fw-bold">Secteur Eau</p>
+            </div>
+            <div class="px-4 text-center mb-3">
+              <i class="bi bi-lightning-charge fs-1 energy-icon"></i>
+              <p class="mt-2 fw-bold">Secteur Électricité</p>
+            </div>
+            <div class="px-4 text-center mb-3">
+              <i class="bi bi-globe fs-1 text-primary"></i>
+              <p class="mt-2 fw-bold">Contexte Africain</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-exclamation-triangle me-2 energy-icon"></i>
+              <h5 class="mb-0">Particularité du Secteur</h5>
+            </div>
+            <div class="card-body">
+              <p>Une particularité fréquente est l'<strong>absence ponctuelle du Product Owner (PO)</strong>. Dans ce cas, le <strong>Business Analyst (BA)</strong> et parfois le <strong>Chef de Projet MOE</strong> peuvent temporairement répondre aux questions des développeurs sur les besoins métiers, <strong>sans arbitrer les priorités ou la vision produit</strong>.</p>
+              <div class="water-highlight highlight-box mt-3">
+                <p><strong>Enjeux spécifiques au secteur :</strong></p>
+                <ul>
+                  <li>Infrastructures parfois vieillissantes</li>
+                  <li>Défis d'accès dans les zones rurales</li>
+                  <li>Nécessité de solutions adaptées au contexte local</li>
+                  <li>Importance des solutions mobiles</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-diagram-3 me-2 text-primary"></i>
+              <h5 class="mb-0">Organisation des Directions</h5>
+            </div>
+            <div class="card-body">
+              <p>Les projets impliquent trois grandes directions :</p>
+              <div class="linked-modules">
+                <span class="linked-module">Métiers</span>
+                <span class="linked-module">AMOA / Transformation Digitale</span>
+                <span class="linked-module">MOE / DSI</span>
+              </div>
+              <p class="mt-3">La réussite dépend de la <strong>clarté des rôles, des interactions et des livrables</strong>, ainsi que de la coordination entre équipes fonctionnelles et techniques.</p>
+              <button class="btn btn-primary btn-sm mt-2" onclick="showDetails('directions')">
+                <i class="bi bi-info-circle me-1"></i>Voir les directions détaillées
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="raci" class="mb-5">
+      <h2 class="text-center mb-4">Matrice RACI des Rôles Clés</h2>
+      
+      <div class="card mb-4">
+        <div class="card-header d-flex align-items-center">
+          <i class="bi bi-table me-2 text-primary"></i>
+          <h5 class="mb-0">16 Rôles Clés du Projet de Transformation Digitale</h5>
+        </div>
+        <div class="card-body">
+          <div class="raci-matrix">
+            <table class="table table-striped table-bordered raci-table">
+              <thead class="table-dark">
+                <tr>
+                  <th>Collaborateur</th>
+                  <th>Direction</th>
+                  <th>Rôle principal</th>
+                  <th>Interactions clés</th>
+                  <th>Livrables principaux</th>
+                  <th>Exemples / Rex</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Business Analyst (BA)</strong></td>
+                  <td>Transformation Digitale / AMOA</td>
+                  <td>Interface stratégique entre Métiers, AMOA et MOE. <strong>Relais temporaire PO</strong> en cas d'absence.</td>
+                  <td>- Métiers : recueil besoins<br>- PO : backlog<br>- MOE / Dev : clarifications</td>
+                  <td>Cahier charges, user stories, modèles processus, rapports suivi besoins</td>
+                  <td>Rex : Clarification de 15 user stories critiques sur projet compteur communicant</td>
+                </tr>
+                <tr>
+                  <td><strong>Product Owner (PO)</strong></td>
+                  <td>Transformation Digitale / AMOA</td>
+                  <td>Vision produit, priorisation backlog, représentation métiers</td>
+                  <td>- BA, Métiers, Chef Projet MOE, Scrum Master</td>
+                  <td>Roadmap produit, backlog priorisé, critères d'acceptation, KPI produit</td>
+                  <td>Rex : ERP facturation eau, réduction de 20% du temps de traitement anomalies</td>
+                </tr>
+                <tr>
+                  <td><strong>Product Manager (PM)</strong></td>
+                  <td>Direction Transformation Digitale / AMOA</td>
+                  <td>Supervise portefeuille produits, stratégie long terme et coordination entre produits</td>
+                  <td>- PO : vision produit<br>- Directions Métiers : alignement stratégique<br>- Chef Projet AMOA</td>
+                  <td>Stratégie produit, business cases, KPI portefeuille, plan de lancement</td>
+                  <td>Rex : Déploiement de 3 modules Smart Meter en parallèle avec priorisation stratégique</td>
+                </tr>
+                <tr>
+                  <td><strong>Scrum Master (SM)</strong></td>
+                  <td>DSI / MOE</td>
+                  <td>Facilite Scrum, supprime obstacles, veille communication Agile</td>
+                  <td>- Développeurs, PO, BA</td>
+                  <td>Burndown charts, rapports sprint, facilitation cérémonies</td>
+                  <td>Rex : Rétrospectives hebdomadaires, réduction incidents tests de 30%</td>
+                </tr>
+                <tr>
+                  <td><strong>Chef de Projet AMOA</strong></td>
+                  <td>Transformation Digitale / AMOA</td>
+                  <td>Pilotage opérationnel côté AMOA, coordination BA, PO et Métiers</td>
+                  <td>- BA, PO, DG/Métiers</td>
+                  <td>Planning projet, tableau suivi tâches, rapports comité, plan risques fonctionnels</td>
+                  <td>Rex : CRM multi-sites, réduction retards livraison de 25%</td>
+                </tr>
+                <tr>
+                  <td><strong>Chef de Projet MOE</strong></td>
+                  <td>DSI / MOE</td>
+                  <td>Pilotage technique, coordination MOE, qualité livrables</td>
+                  <td>- PO/BA, Architecte SI, Développeurs, Scrum Master</td>
+                  <td>Planning technique, rapports incidents, livrables techniques, documentation recette</td>
+                  <td>Rex : Intégration IoT Smart Meter, coordination 10 dev + 3 API tierces, livrée sans incident</td>
+                </tr>
+                <tr>
+                  <td><strong>Architecte SI / MOE</strong></td>
+                  <td>DSI / MOE</td>
+                  <td>Conception technique et cohérence SI</td>
+                  <td>- BA/PO, Développeurs</td>
+                  <td>Architecture technique, schémas intégration, guides paramétrage, doc architecture</td>
+                  <td>Rex : Module facturation microservices montée en charge 500k clients</td>
+                </tr>
+                <tr>
+                  <td><strong>Développeurs / Equipe MOE</strong></td>
+                  <td>DSI / MOE</td>
+                  <td>Développement technique (apps, API, dashboards)</td>
+                  <td>- BA/PO, Architecte SI, Chef Projet MOE, Scrum Master</td>
+                  <td>Code applicatif, API/interfaces, doc technique, déploiements</td>
+                  <td>Rex : App mobile relevé compteur testée sur 100 sites pilotes</td>
+                </tr>
+                <tr>
+                  <td><strong>QA / Test</strong></td>
+                  <td>DSI / MOE</td>
+                  <td>Validation fonctionnelle et technique, exécution tests</td>
+                  <td>- Dev, BA/PO, Chef Projet MOE</td>
+                  <td>Cahiers tests unitaires/intégration/recette, rapports anomalies, KPI qualité</td>
+                  <td>Rex : Bug critique facturation détecté avant production, évite perte 50k USD</td>
+                </tr>
+                <tr>
+                  <td><strong>Directions Métiers</strong></td>
+                  <td>Métiers</td>
+                  <td>Fournir besoins opérationnels, valider solutions et tests</td>
+                  <td>- BA/PO, Chef Projet AMOA, QA</td>
+                  <td>Expression besoins, cahiers test UAT, feedback validation, KPI métiers</td>
+                  <td>Rex : Dashboards énergie validés par régulateur, gain 40% temps reporting</td>
+                </tr>
+                <tr>
+                  <td><strong>Analyste Data / Data Engineer</strong></td>
+                  <td>Transformation Digitale / AMOA ou DSI</td>
+                  <td>Préparer/analyser données pour pilotage métier</td>
+                  <td>- Métiers, BA/PO, Architecte SI</td>
+                  <td>Modèles données/pipelines ETL, dashboards, analyses KPI, doc data</td>
+                  <td>Rex : Dashboard consommation eau temps réel adopté par 3 directions métiers</td>
+                </tr>
+                <tr>
+                  <td><strong>Expert Cybersécurité / IT Security</strong></td>
+                  <td>DSI / MOE</td>
+                  <td>Sécurité SI, conformité et protection données</td>
+                  <td>- Architecte SI/Dev, Chef Projet MOE, BA/PO</td>
+                  <td>Politiques sécurité, audit sécurité, recommandations mitigation, conformité RGPD/ISO27001</td>
+                  <td>Rex : Audit sécurité module facturation en ligne, correction 12 vulnérabilités critiques</td>
+                </tr>
+                <tr>
+                  <td><strong>Responsable Change / Formation</strong></td>
+                  <td>Transformation Digitale / AMOA</td>
+                  <td>Adoption solutions, formation métiers</td>
+                  <td>- Métiers, BA/PO, Scrum Master/Chef Projet AMOA</td>
+                  <td>Plan changement, supports formation, sessions ateliers, feedback adoption</td>
+                  <td>Rex : Formation 200 agents terrain sur app mobile relevé compteur, adoption complète en 3 semaines</td>
+                </tr>
+                <tr>
+                  <td><strong>Analyste UX/UI</strong></td>
+                  <td>Transformation Digitale / AMOA</td>
+                  <td>Conception expérience utilisateur et interfaces</td>
+                  <td>- PO, BA, Développeurs</td>
+                  <td>Wireframes, maquettes, prototypes, tests utilisateurs</td>
+                  <td>Rex : Amélioration de l'interface mobile compteur, augmentation adoption de 25%</td>
+                </tr>
+                <tr>
+                  <td><strong>Responsable DevOps / CI-CD</strong></td>
+                  <td>DSI / MOE</td>
+                  <td>Automatisation déploiements, intégration continue, gestion environnements</td>
+                  <td>- Dev, QA, Architecte SI</td>
+                  <td>Pipelines CI/CD, scripts déploiement, monitoring production</td>
+                  <td>Rex : Déploiement automatisé de dashboards en production sans interruption services</td>
+                </tr>
+                <tr>
+                  <td><strong>Coordinateur Intégration / API</strong></td>
+                  <td>DSI / MOE</td>
+                  <td>Garantir cohérence et intégration des systèmes existants et nouveaux</td>
+                  <td>- Architecte SI, Dev, QA</td>
+                  <td>Plan d'intégration, tests interfaces, documentation API</td>
+                  <td>Rex : Intégration API facturation mobile avec ERP existant, testée sur 5 sites pilotes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flux" class="mb-5">
+      <h2 class="text-center mb-4">Flux d'Interaction entre les Rôles</h2>
+      
+      <div class="card mb-4">
+        <div class="card-header d-flex align-items-center">
+          <i class="bi bi-diagram-3 me-2 text-primary"></i>
+          <h5 class="mb-0">Schéma des Interactions</h5>
+        </div>
+        <div class="card-body">
+          <div class="mermaid-container">
+            <div class="mermaid">
+              flowchart TD
+                %% Directions
+                subgraph METIERS["Directions Métiers"]
+                  DM_Eau("Eau")
+                  DM_Elec("Électricité")
+                  DM_Com("Commercial")
+                  DM_Fin("Finance")
+                  DM_RH("RH")
+                end
+
+                subgraph AMOA["AMOA / Transformation Digitale"]
+                  BA("Business Analyst (BA)")
+                  PO("Product Owner (PO)")
+                  PM("Product Manager (PM)")
+                  UX("Analyste UX/UI")
+                  CHANGE("Responsable Change / Formation")
+                  DATA("Analyste Data / Data Engineer")
+                end
+
+                subgraph MOE["MOE / DSI"]
+                  CP_MOE("Chef de Projet MOE")
+                  ARCH("Architecte SI")
+                  DEV("Développeurs")
+                  QA("QA / Test")
+                  SM("Scrum Master")
+                  DEVOPS("Responsable DevOps / CI-CD")
+                  INT("Coordinateur Intégration / API")
+                  SEC("Expert Cybersécurité / IT Security")
+                end
+
+                %% Interactions Métiers ↔ AMOA
+                DM_Eau --> BA
+                DM_Elec --> BA
+                DM_Com --> BA
+                DM_Fin --> BA
+                DM_RH --> BA
+
+                BA --> PO
+                BA --> CP_MOE
+                PO --> DEV
+                PO --> BA
+                PM --> PO
+                PM --> BA
+                UX --> DEV
+                DATA --> BA
+                DATA --> ARCH
+                CHANGE --> DM_Eau
+                CHANGE --> DM_Elec
+                CHANGE --> DM_Com
+                CHANGE --> DM_Fin
+                CHANGE --> DM_RH
+
+                %% Interactions AMOA ↔ MOE
+                BA --> CP_MOE
+                BA --> ARCH
+                CP_MOE --> DEV
+                CP_MOE --> QA
+                ARCH --> DEV
+                DEV --> QA
+                DEV --> INT
+                DEVOPS --> DEV
+                DEVOPS --> QA
+                SEC --> ARCH
+                SEC --> DEV
+                SEC --> DEVOPS
+                SM --> DEV
+                SM --> PO
+                SM --> BA
+            </div>
+          </div>
+          <div class="mt-3">
+            <p class="text-muted"><small>Ce diagramme montre les principales interactions entre les différents rôles du projet. Les flèches indiquent les flux de communication et de collaboration.</small></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bonnes-pratiques" class="mb-5">
+      <h2 class="text-center mb-4">Bonnes Pratiques en cas d'Absence du PO</h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-person-check me-2 text-primary"></i>
+              <h5 class="mb-0">Rôles en cas d'absence du PO</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Rôle</th>
+                    <th>Direction</th>
+                    <th>Action en absence du PO</th>
+                    <th>Limites / Bonnes pratiques</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Business Analyst (BA)</strong></td>
+                    <td>AMOA</td>
+                    <td>Répond aux questions fonctionnelles et clarifie les user stories auprès des développeurs.</td>
+                    <td>Ne doit pas décider de la priorisation des fonctionnalités ou arbitrer des choix métier majeurs.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Chef de Projet MOE</strong></td>
+                    <td>MOE / DSI</td>
+                    <td>Peut aider à clarifier des points techniques ou faciliter la communication avec les métiers si le BA n'est pas disponible.</td>
+                    <td>Ne doit pas modifier la vision produit ni les priorités du PO.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Scrum Master</strong></td>
+                    <td>MOE / DSI</td>
+                    <td>Facilite la communication et organise des ateliers ad hoc pour lever les blocages.</td>
+                    <td>Ne remplace pas le PO pour les décisions métiers, seulement pour lever les obstacles de communication.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-check-circle me-2 text-primary"></i>
+              <h5 class="mb-0">Recommandations Clés</h5>
+            </div>
+            <div class="card-body">
+              <div class="process-step">
+                <h5>1. BA comme relais fonctionnel</h5>
+                <p>Clarifie les user stories et répond aux questions des développeurs.</p>
+              </div>
+              
+              <div class="process-step">
+                <h5>2. Chef de Projet MOE comme facilitateur technique</h5>
+                <p>Aide à résoudre questions pratiques sur besoins métiers sans arbitrer priorisation.</p>
+              </div>
+              
+              <div class="process-step">
+                <h5>3. Scrum Master organise ateliers</h5>
+                <p>Veille à la fluidité des échanges.</p>
+              </div>
+              
+              <div class="process-step">
+                <h5>4. Documentation systématique</h5>
+                <p>Toutes les réponses provisoires consignées pour validation ultérieure du PO.</p>
+              </div>
+              
+              <div class="process-step">
+                <h5>5. Transparence</h5>
+                <p>Signaler que certaines réponses sont temporaires et sujettes à validation du PO.</p>
+              </div>
+              
+              <div class="energy-highlight highlight-box mt-3">
+                <p><strong>Résumé pratique :</strong></p>
+                <ul>
+                  <li>Le <strong>BA est le relais principal du PO</strong> côté fonctionnel.</li>
+                  <li>Le <strong>Chef de Projet MOE ou Scrum Master</strong> facilite l'échange technique et organisationnel, mais <strong>ne prend pas de décision métier</strong>.</li>
+                  <li>Tout doit être <strong>consigné et validé après le retour du PO</strong>.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="simulations" class="mb-5">
+      <h2 class="text-center mb-4">Simulations Interactives</h2>
+
+      <ul class="nav nav-tabs justify-content-center mb-4" id="simulationTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="gestion-po-tab" data-bs-toggle="tab" data-bs-target="#gestion-po" type="button" role="tab">Absence du PO</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="communication-tab" data-bs-toggle="tab" data-bs-target="#communication" type="button" role="tab">Flux de Communication</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="decision-tab" data-bs-toggle="tab" data-bs-target="#decision" type="button" role="tab">Processus de Décision</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="simulationTabContent">
+        <div class="tab-pane fade show active" id="gestion-po" role="tabpanel">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-person-x me-2"></i>Simulation : Gestion de l'absence du PO</h3>
+            <p>Cette simulation vous permet d'expérimenter comment gérer les questions des développeurs en l'absence du Product Owner.</p>
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h5 class="mb-0">Scénario</h5>
+                  </div>
+                  <div class="card-body">
+                    <p>Le PO est absent pour 3 jours. L'équipe de développement travaille sur la fonctionnalité de "Facturation en ligne" et a des questions sur :</p>
+                    <ul>
+                      <li>Le format d'affichage des factures</li>
+                      <li>Les options de paiement à proposer</li>
+                      <li>La gestion des cas d'erreur</li>
+                    </ul>
+                    <p>Comment réagissez-vous en tant que <strong>Business Analyst</strong> ?</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <h5 class="mb-0">Actions possibles</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="po-absence" id="option1" value="1">
+                      <label class="form-check-label" for="option1">
+                        Répondre directement aux questions des développeurs
+                      </label>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="po-absence" id="option2" value="2">
+                      <label class="form-check-label" for="option2">
+                        Organiser une réunion avec les métiers pour clarifier les besoins
+                      </label>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="po-absence" id="option3" value="3">
+                      <label class="form-check-label" for="option3">
+                        Reporter le travail sur cette fonctionnalité jusqu'au retour du PO
+                      </label>
+                    </div>
+                    <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="po-absence" id="option4" value="4">
+                      <label class="form-check-label" for="option4">
+                        Consulter la documentation existante et clarifier les points non couverts
+                      </label>
+                    </div>
+                    
+                    <button class="btn btn-primary mt-3" onclick="evaluatePOAbsence()">Évaluer ma réponse</button>
+                    
+                    <div id="po-feedback" class="mt-3" style="display: none;">
+                      <div class="alert alert-info">
+                        <h6>Retour d'expérience :</h6>
+                        <p id="feedback-text"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="communication" role="tabpanel">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-chat-dots me-2"></i>Simulation : Flux de Communication</h3>
+            <p>Cette simulation vous permet de tester vos connaissances sur les flux de communication entre les différents rôles.</p>
+            
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Question 1 : Qui doit être consulté pour une modification de l'architecture technique ?</h5>
+              </div>
+              <div class="card-body">
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="q1-option1">
+                  <label class="form-check-label" for="q1-option1">Architecte SI</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="q1-option2">
+                  <label class="form-check-label" for="q1-option2">Product Owner</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="q1-option3">
+                  <label class="form-check-label" for="q1-option3">Expert Cybersécurité</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" id="q1-option4">
+                  <label class="form-check-label" for="q1-option4">Chef de Projet AMOA</label>
+                </div>
+                
+                <button class="btn btn-primary mt-3" onclick="checkCommunicationAnswer()">Vérifier la réponse</button>
+                
+                <div id="communication-feedback" class="mt-3" style="display: none;">
+                  <div class="alert alert-info">
+                    <h6>Correction :</h6>
+                    <p id="communication-feedback-text"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="decision" role="tabpanel">
+          <div class="simulation-container">
+            <h3 class="mb-4"><i class="bi bi-diagram-3 me-2"></i>Simulation : Processus de Décision</h3>
+            <p>Cette simulation vous permet de comprendre qui est responsable de quelles décisions dans un projet de transformation digitale.</p>
+            
+            <div class="card mb-4">
+              <div class="card-header">
+                <h5 class="mb-0">Scénario : Priorisation des fonctionnalités</h5>
+              </div>
+              <div class="card-body">
+                <p>Le projet de déploiement d'une application mobile pour les relevés de compteurs doit prioriser ses fonctionnalités pour le prochain sprint. Qui doit prendre cette décision ?</p>
+                
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="decision" id="decision1" value="1">
+                  <label class="form-check-label" for="decision1">Product Owner</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="decision" id="decision2" value="2">
+                  <label class="form-check-label" for="decision2">Business Analyst</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="decision" id="decision3" value="3">
+                  <label class="form-check-label" for="decision3">Chef de Projet MOE</label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="radio" name="decision" id="decision4" value="4">
+                  <label class="form-check-label" for="decision4">Scrum Master</label>
+                </div>
+                
+                <button class="btn btn-primary mt-3" onclick="checkDecisionAnswer()">Vérifier la réponse</button>
+                
+                <div id="decision-feedback" class="mt-3" style="display: none;">
+                  <div class="alert alert-info">
+                    <h6>Correction :</h6>
+                    <p id="decision-feedback-text"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ressources" class="mb-5">
+      <h2 class="text-center mb-4">Ressources Complémentaires</h2>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-file-earmark-text me-2 text-primary"></i>
+              <h5 class="mb-0">Documentation</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled">
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-file-pdf me-2"></i>Guide des rôles et responsabilités</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-file-word me-2"></i>Modèle de matrice RACI</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-file-text me-2"></i>Checklist de gestion d'absence du PO</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-file-bar-graph me-2"></i>Indicateurs de performance projet</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-tools me-2 text-primary"></i>
+              <h5 class="mb-0">Outils</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled">
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-kanban me-2"></i>Tableau de bord Agile</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-chat-square-text me-2"></i>Modèle de compte-rendu de réunion</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-calendar-check me-2"></i>Planificateur de sprint</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-graph-up me-2"></i>Tableau de suivi des risques</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-collection-play me-2 text-primary"></i>
+              <h5 class="mb-0">Formations</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled">
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-play-circle me-2"></i>Vidéo : Rôles et interactions</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-book me-2"></i>Guide Agile pour le secteur eau/électricité</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-puzzle me-2"></i>Cas pratiques : Gestion d'absence du PO</a></li>
+                <li class="mb-2"><a href="#" class="text-decoration-none"><i class="bi bi-bar-chart me-2"></i>Webinaire : Mesurer l'efficacité des équipes</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Transformation Digitale - Secteur Eau/Électricité Afrique</h5>
+          <p>Ce portail présente les rôles clés, les interactions et les bonnes pratiques pour réussir vos projets de transformation digitale dans le secteur de l'eau et de l'électricité en Afrique.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Liens utiles</h5>
+          <ul class="list-unstyled">
+            <li><a href="#contexte" class="text-white-50">Contexte</a></li>
+            <li><a href="#raci" class="text-white-50">Matrice RACI</a></li>
+            <li><a href="#flux" class="text-white-50">Flux d'interaction</a></li>
+            <li><a href="#bonnes-pratiques" class="text-white-50">Bonnes pratiques</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Contact</h5>
+          <ul class="list-unstyled">
+            <li><i class="bi bi-envelope me-2"></i>contact@transformation-digitale-afrique.com</li>
+            <li><i class="bi bi-telephone me-2"></i>+33 1 23 45 67 89</li>
+            <li><i class="bi bi-geo-alt me-2"></i>Paris, France</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2023 Transformation Digitale - Secteur Eau/Électricité Afrique. Tous droits réservés.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <a href="#" class="text-white-50 me-3">Mentions légales</a>
+          <a href="#" class="text-white-50 me-3">Politique de confidentialité</a>
+          <a href="#" class="text-white-50">Conditions d'utilisation</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Initialisation de Mermaid pour les diagrammes
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'default',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      }
+    });
+
+    // Fonction pour évaluer la réponse à la simulation d'absence du PO
+    function evaluatePOAbsence() {
+      const selectedOption = document.querySelector('input[name="po-absence"]:checked');
+      const feedbackDiv = document.getElementById('po-feedback');
+      const feedbackText = document.getElementById('feedback-text');
+      
+      if (!selectedOption) {
+        feedbackText.innerHTML = "Veuillez sélectionner une option avant d'évaluer votre réponse.";
+        feedbackDiv.style.display = 'block';
+        return;
+      }
+      
+      switch(selectedOption.value) {
+        case '1':
+          feedbackText.innerHTML = "<strong>Réponse partiellement correcte :</strong> En tant que BA, vous pouvez clarifier les user stories existantes, mais attention à ne pas prendre de décisions métier qui relèvent du PO. Assurez-vous de documenter vos réponses pour validation ultérieure.";
+          break;
+        case '2':
+          feedbackText.innerHTML = "<strong>Bonne réponse :</strong> Organiser une réunion avec les métiers est une excellente approche pour clarifier les besoins sans outrepasser votre rôle. Cela permet de maintenir la progression du projet tout en respectant la chaîne de décision.";
+          break;
+        case '3':
+          feedbackText.innerHTML = "<strong>Réponse trop prudente :</strong> Bien que cela évite les risques, reporter complètement le travail peut ralentir le projet. En tant que BA, vous avez les compétences pour clarifier certains points fonctionnels sans prendre de décisions stratégiques.";
+          break;
+        case '4':
+          feedbackText.innerHTML = "<strong>Bonne réponse :</strong> Consulter la documentation existante est une première étape essentielle. Clarifier les points non couverts avec les métiers (si possible) ou documenter les questions pour le retour du PO est une approche équilibrée.";
+          break;
+      }
+      
+      feedbackDiv.style.display = 'block';
+    }
+
+    // Fonction pour vérifier la réponse à la simulation de communication
+    function checkCommunicationAnswer() {
+      const option1 = document.getElementById('q1-option1').checked;
+      const option2 = document.getElementById('q1-option2').checked;
+      const option3 = document.getElementById('q1-option3').checked;
+      const option4 = document.getElementById('q1-option4').checked;
+      
+      const feedbackDiv = document.getElementById('communication-feedback');
+      const feedbackText = document.getElementById('communication-feedback-text');
+      
+      if (option1 && option3 && !option2 && !option4) {
+        feedbackText.innerHTML = "<strong>Excellente réponse !</strong> Pour une modification de l'architecture technique, l'Architecte SI et l'Expert Cybersécurité sont les interlocuteurs principaux. Le PO n'a pas besoin d'être consulté directement sur les aspects techniques purs, et le Chef de Projet AMOA n'est concerné que si cela a un impact fonctionnel.";
+      } else if (option1 && option3 && (option2 || option4)) {
+        feedbackText.innerHTML = "<strong>Réponse partiellement correcte :</strong> L'Architecte SI et l'Expert Cybersécurité sont essentiels. Le PO ne doit être consulté que si la modification impacte la vision produit ou les fonctionnalités. Le Chef de Projet AMOA n'est concerné que si cela a un impact fonctionnel significatif.";
+      } else {
+        feedbackText.innerHTML = "<strong>Réponse incorrecte :</strong> Pour une modification de l'architecture technique, les principaux interlocuteurs sont l'Architecte SI (responsable de la cohérence technique) et l'Expert Cybersécurité (pour les aspects sécurité). Le PO n'est concerné que si cela impacte la vision produit, et le Chef de Projet AMOA seulement en cas d'impact fonctionnel.";
+      }
+      
+      feedbackDiv.style.display = 'block';
+    }
+
+    // Fonction pour vérifier la réponse à la simulation de décision
+    function checkDecisionAnswer() {
+      const selectedOption = document.querySelector('input[name="decision"]:checked');
+      const feedbackDiv = document.getElementById('decision-feedback');
+      const feedbackText = document.getElementById('decision-feedback-text');
+      
+      if (!selectedOption) {
+        feedbackText.innerHTML = "Veuillez sélectionner une option avant de vérifier votre réponse.";
+        feedbackDiv.style.display = 'block';
+        return;
+      }
+      
+      if (selectedOption.value === '1') {
+        feedbackText.innerHTML = "<strong>Excellente réponse !</strong> Le Product Owner est responsable de la priorisation des fonctionnalités. Il représente les intérêts des métiers et définit la vision produit.";
+      } else {
+        feedbackText.innerHTML = "<strong>Réponse incorrecte :</strong> La priorisation des fonctionnalités relève du Product Owner. Les autres rôles peuvent fournir des inputs (le BA sur les aspects fonctionnels, le Chef de Projet MOE sur les contraintes techniques, le Scrum Master sur la capacité de l'équipe), mais la décision finale revient au PO.";
+      }
+      
+      feedbackDiv.style.display = 'block';
+    }
+
+    // Fonction pour afficher les détails des directions (exemple)
+    function showDetails(type) {
+      alert("Cette fonctionnalité permettrait d'afficher plus de détails sur les " + type + ". Dans une version complète, cela ouvrirait un modal ou une nouvelle section avec des informations détaillées.");
+    }
+
+    // Animation au défilement pour les cartes
+    document.addEventListener('DOMContentLoaded', function() {
+      const cards = document.querySelectorAll('.module-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      cards.forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>
